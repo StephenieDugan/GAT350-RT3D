@@ -62,6 +62,7 @@ namespace Twili
         }
        
         // post-render
+        //pog champ
         renderer.EndFrame();
     }
 }
