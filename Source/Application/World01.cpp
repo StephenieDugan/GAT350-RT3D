@@ -21,7 +21,7 @@ namespace Twili
 
     void World01::Update(float dt)
     {
-        m_angle += 90 + dt;
+        m_angle += 30 * dt;
 
         m_position.y += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_W) ? dt : 0;
         m_position.x += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_A) ? -dt : 0;
@@ -41,7 +41,7 @@ namespace Twili
             // render
         glPushMatrix();
         glTranslatef(m_positions[i].x, m_positions[i].y, 0);
-        //glRotatef(m_angle, 0, 0, 1);
+        glRotatef(m_angle, 0, 0, 1);
         glScalef((sin(m_time * 5)+ 1) *0.5f, 1, 0);
 
         glBegin(GL_TRIANGLES);
