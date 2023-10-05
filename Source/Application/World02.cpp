@@ -2,6 +2,8 @@
 #include "Framework/Framework.h"
 #include "Input/InputSystem.h"
 
+#define INTERLEAVE
+
 namespace Twili
 {
     bool World02::Initialize()
@@ -39,7 +41,38 @@ namespace Twili
         glLinkProgram(program);
         glUseProgram(program);
 
+#ifdef INTERLEAVE 
 
+        //vertex data
+        float vertexData[] = {
+            0.8f, -0.8f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+           -0.8f, -0.8f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+           -0.8f,  0.8f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+            0.8f,  0.8f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f
+        };
+
+       
+
+        GLuint vbo;
+        glGenBuffers(1, &vbo);
+
+        glBindBuffer(GL_ARRAY_BUFFER, vbo);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_STATIC_DRAW);
+
+        glGenVertexArrays(1, &vao);
+        glBindVertexArray(vao);
+
+        glBindVertexBuffer(0, vbo, 0, 7 * sizeof(GLfloat));
+
+        //position
+        glEnableVertexAttribArray(0);
+        glVertexAttribFormat(0, 4, GL_FLOAT, GL_FALSE, 0);
+        glVertexAttribBinding(0, 0);
+
+        glEnableVertexAttribArray(1);
+        glVertexAttribFormat(1, 4, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat));
+        glVertexAttribBinding(1, 0);
+#else
 
         //vertex data
         float vertices[] = {
@@ -76,6 +109,8 @@ namespace Twili
         glEnableVertexAttribArray(1);
         glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, 0);
         glBindVertexBuffer(1, vbo[1], 0, 4 * sizeof(GLfloat));
+
+#endif
 
         return true;
     }
