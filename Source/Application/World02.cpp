@@ -2,7 +2,9 @@
 #include "Framework/Framework.h"
 #include "Input/InputSystem.h"
 
-#define INTERLEAVE
+//#define INTERLEAVE
+#define INDEX 
+
 
 namespace Twili
 {
@@ -44,13 +46,17 @@ namespace Twili
 #ifdef INTERLEAVE 
 
         //vertex data
-        float vertexData[] = {
+       /* float vertexData[] = {
             0.8f, -0.8f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
            -0.8f, -0.8f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
            -0.8f,  0.8f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
             0.8f,  0.8f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f
-        };
-
+        };*/
+        float vertexData[] = 
+        { -0.8f, -0.8f, 0.0f, 1.0f, 0.63f, 0.99f,
+            -0.8f, 0.8f, 0.0f, 0.48f, 0.64f, 1.0f,
+            0.8f, -0.8f, 0.0f, 1.0f, 1.0f, 1.0f,
+            0.8f, 0.8f, 0.0f, 0.0f, 0.0f, 0.0f };
        
 
         GLuint vbo;
@@ -63,6 +69,50 @@ namespace Twili
         glBindVertexArray(vao);
 
         glBindVertexBuffer(0, vbo, 0, 7 * sizeof(GLfloat));
+
+        //position
+        glEnableVertexAttribArray(0);
+        glVertexAttribFormat(0, 4, GL_FLOAT, GL_FALSE, 0);
+        glVertexAttribBinding(0, 0);
+
+        glEnableVertexAttribArray(1);
+        glVertexAttribFormat(1, 4, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat));
+        glVertexAttribBinding(1, 0);
+
+#elif defined(INDEX)
+        //vertex data
+        float vertexData[] = {
+     -1.0f,  1.0f, 0.0f, 1.0f, 0.0f, 0.0f, // top-left
+      1.0f,  1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // top-right
+      1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f, // bottom-right
+     -1.0f, -1.0f, 0.0f, 1.0f, 1.0f, 1.0f  // bottom-left
+        };
+
+        GLuint indexes[] =
+        {
+            0,1,2,
+            2,3,0
+        };
+        //vertex buffer object
+        GLuint vbo;
+        glGenBuffers(1, &vbo);
+        glBindBuffer(GL_ARRAY_BUFFER, vbo);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_STATIC_DRAW);
+
+
+        //index buffer object
+        GLuint ibo;
+        glGenBuffers(1, &ibo);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indexes), indexes, GL_STATIC_DRAW);
+
+
+        //vertex array object
+        glGenVertexArrays(1, &vao);
+        glBindVertexArray(vao);
+
+        glBindVertexBuffer(0, vbo, 0, 7 * sizeof(GLfloat));
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
 
         //position
         glEnableVertexAttribArray(0);
@@ -139,7 +189,12 @@ namespace Twili
         
         // render
         glBindVertexArray(vao);
-        glDrawArrays(GL_QUADS, 0, 4);
+
+#ifdef INDEX
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+#else
+        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+#endif
       
        
         // post-render

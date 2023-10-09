@@ -9,8 +9,7 @@ uniform float time;
 
 void main()
 {
-	vec3 mcolor = vec3(color.r + color.g + color.b)/10 ;
-	ocolor = vec4(1, 0,0, 1);
+	ocolor = vec4(color, 1);
 }
 
 
