@@ -3,88 +3,54 @@
 #include "Input/InputSystem.h"
 #include <glm/glm/gtc/type_ptr.hpp>
 
-#define INTERLEAVE
-
 namespace Twili
 {
     bool World03::Initialize()
     {
        
-        m_program = GET_RESOURCE(Program, "Shaders/unlit_color.prog");
+        m_program = GET_RESOURCE(Program, "Shaders/unlit_texture.prog");
         m_program->Use();
 
-
-#ifdef INTERLEAVE 
+        m_texture = GET_RESOURCE(Texture, "Textures/llama.jpg");
+        m_texture->Bind();
+        m_texture->setActive(GL_TEXTURE0); 
 
         //vertex data
         float vertexData[] = {
-           -0.8f, -0.8f, 0.0f, 1.0f, 0.63f, 0.99f,
-             -0.8f, 0.8f, 0.0f, 0.48f, 0.64f, 1.0f,
-             0.8f, -0.8f, 0.0f, 1.0f, 1.0f, 1.0f,
-             0.8f, 0.8f, 0.0f, 0.0f, 0.0f, 0.0f
+    -0.8f, -0.8f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+    -0.8f,  0.8f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+     0.8f, -0.8f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f,
+     0.8f,  0.8f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
         };
 
        
 
         GLuint vbo;
         glGenBuffers(1, &vbo);
-
         glBindBuffer(GL_ARRAY_BUFFER, vbo);
         glBufferData(GL_ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_STATIC_DRAW);
 
         glGenVertexArrays(1, &vao);
         glBindVertexArray(vao);
 
-        glBindVertexBuffer(0, vbo, 0, 7 * sizeof(GLfloat));
+        glBindVertexBuffer(0, vbo, 0, 8 * sizeof(GLfloat));
 
         //position
         glEnableVertexAttribArray(0);
-        glVertexAttribFormat(0, 4, GL_FLOAT, GL_FALSE, 0);
+        glVertexAttribFormat(0, 3, GL_FLOAT, GL_FALSE, 0);
         glVertexAttribBinding(0, 0);
 
+        //color
         glEnableVertexAttribArray(1);
-        glVertexAttribFormat(1, 4, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat));
+        glVertexAttribFormat(1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat));
         glVertexAttribBinding(1, 0);
-#else
+        
+        //texCoord 
+        glEnableVertexAttribArray(2);
+        glVertexAttribFormat(2, 2, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat));
+        glVertexAttribBinding(2, 0);
 
-        //vertex data
-        float vertices[] = {
-            0.8f, -0.8f, 0.0f,
-           -0.8f, -0.8f, 0.0f,
-           -0.8f,  0.8f, 0.0f,
-            0.8f,  0.8f, 0.0f
-        };
-       
-        float color[] =
-        {
-            1.0f, 0.0f, 0.0f, 0.0f,
-            1.0f, 0.0f, 0.0f, 0.0f,
-            1.0f, 0.0f, 0.0f, 0.0f,
-            1.0f, 0.0f, 0.0f, 0.0f
-        };
-
-        GLuint vbo[2];
-        glGenBuffers(2, vbo);
-
-        glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-        glBindBuffer(GL_ARRAY_BUFFER, vbo[1]);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(color), color, GL_STATIC_DRAW);
-
-        glGenVertexArrays(1, &vao);
-        glBindVertexArray(vao);
-
-        glEnableVertexAttribArray(0);
-        glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, 0);
-        glBindVertexBuffer(0, vbo[0], 0, 3 * sizeof(GLfloat));
-
-        glEnableVertexAttribArray(1);
-        glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, 0);
-        glBindVertexBuffer(1, vbo[1], 0, 4 * sizeof(GLfloat));
-
-#endif
-        m_transform.position.z = -10.0f;
+        //m_transform.position.z = -10.0f;
         return true;
     }
 
@@ -102,7 +68,7 @@ namespace Twili
         ImGui::DragFloat3("Scale", &m_transform.scale[0]);
         ImGui::End();
 
-        m_transform.rotation.z += 100 * dt;
+        //m_transform.rotation.z += 100 * dt;
 
         m_transform.position.x += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_A) ? m_speed * -dt : 0;
         m_transform.position.x += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_D) ? m_speed * +dt : 0;
@@ -110,12 +76,18 @@ namespace Twili
         m_transform.position.z += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_S) ? m_speed * +dt : 0;
         m_time += dt;
 
+
+        //set offset
+        m_program->SetUniform("offset", glm::vec2{m_time, 0});
+        
+        //set tiling
+        m_program->SetUniform("tiling", glm::vec2{2, 2});
+
         //model matrix
         m_program->SetUniform("model", m_transform.GetMatrix());
 
-     
         //view matrix
-        glm::mat4 view = glm::lookAt(glm::vec3{ 0,4,5 }, glm::vec3{0,0,0}, glm::vec3{0,1,0});
+        glm::mat4 view = glm::lookAt(glm::vec3{ 0,0,2 }, glm::vec3{0,0,0}, glm::vec3{0,1,0});
         m_program->SetUniform("view", view);
 
         //projection matrix
@@ -133,7 +105,7 @@ namespace Twili
         
         // render
         glBindVertexArray(vao);
-        glDrawArrays(GL_QUADS, 0, 4);
+        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
         ENGINE.GetSystem<Gui>()->Draw();
       
