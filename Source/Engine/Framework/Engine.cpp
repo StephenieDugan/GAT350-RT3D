@@ -1,5 +1,6 @@
 #include "Engine.h"
 #include "Renderer/Renderer.h"
+#include "Renderer/Gui.h"
 #include "Input/InputSystem.h"
 
 namespace Twili
@@ -9,6 +10,7 @@ namespace Twili
 		// create systems
 		m_systems.push_back(std::move(std::make_unique<Renderer>()));
 		m_systems.push_back(std::move(std::make_unique<InputSystem>()));
+		
 
 		// initialize systems
 		for (auto& system : m_systems)
@@ -17,6 +19,8 @@ namespace Twili
 		}
 
 		GetSystem<Renderer>()->CreateWindow("GAT350", 800, 600);
+		m_systems.push_back(std::move(std::make_unique<Gui>()));
+		GetSystem<Gui>()->Initialize();
 
 		return true;
 	}
@@ -37,6 +41,7 @@ namespace Twili
 		// update sdl events
 		SDL_Event event;
 		SDL_PollEvent(&event);
+		GetSystem<Gui>()->ProcessEvent(event);
 		
 		// update time
 		m_time.Tick();

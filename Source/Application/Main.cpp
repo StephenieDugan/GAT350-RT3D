@@ -11,7 +11,7 @@ int main(int argc, char* argv[])
 {
 	INFO_LOG("Initialize Engine...")
 
-	Twili::MemoryTracker::Initialize();
+	//Twili::MemoryTracker::Initialize();
 	Twili::seedRandom((unsigned int)time(nullptr));
 	Twili::setFilePath("assets");
 
