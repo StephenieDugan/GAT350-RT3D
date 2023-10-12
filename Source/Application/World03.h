@@ -1,8 +1,6 @@
 #pragma once
 #include "Framework/World.h"
 #include "Renderer/Renderer.h"
-#include "Core/Math/Vector2.h"
-#include "Renderer/Program.h"
 #include <vector>
 
 namespace Twili
