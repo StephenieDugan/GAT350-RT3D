@@ -119,6 +119,7 @@ namespace Twili
         glVertexAttribFormat(0, 4, GL_FLOAT, GL_FALSE, 0);
         glVertexAttribBinding(0, 0);
 
+        //color
         glEnableVertexAttribArray(1);
         glVertexAttribFormat(1, 4, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat));
         glVertexAttribBinding(1, 0);

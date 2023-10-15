@@ -5,6 +5,7 @@
 #include "Texture.h"
 #include "Shader.h"
 #include "Program.h"
+#include "VertexBuffer.h"
 #include "Gui.h"
 
 #include "glad/include/glad/glad.h"

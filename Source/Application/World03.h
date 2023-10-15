@@ -19,7 +19,7 @@ namespace Twili
 
 		Transform m_transform;
 
-		GLuint vao;
+		res_t<VertexBuffer> m_vertexBuffer;
 		res_t<Program> m_program;
 		res_t<Texture> m_texture;
 	};
