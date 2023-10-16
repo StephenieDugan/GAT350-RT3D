@@ -74,7 +74,7 @@ namespace Twili
 		glEnableVertexAttribArray(attribindex);
 
 		// set vertex attribute format
-		glVertexAttribFormat(attribindex, size, m_indexType, GL_FALSE, offset);
+		glVertexAttribFormat(attribindex, size, GL_FLOAT, GL_FALSE, offset);
 
 		// bind vertex attribute index to vertex buffer
 		glVertexAttribBinding(attribindex, 0);

@@ -35,7 +35,7 @@
       <Filter>Source\Event</Filter>
     </ClCompile>
     <ClCompile Include="Engine.cpp">
-      <Filter>Source</Filter>
+      <Filter>Source\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

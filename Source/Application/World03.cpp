@@ -8,13 +8,7 @@ namespace Twili
     bool World03::Initialize()
     {
         m_material = GET_RESOURCE(Material, "materials/quad.mtrl");
-       /* m_program = GET_RESOURCE(Program, "Shaders/unlit_texture.prog");
-        m_program->Use();
-
-        m_texture = GET_RESOURCE(Texture, "Textures/llama.jpg");
-        m_texture->Bind();
-        m_texture->setActive(GL_TEXTURE0);*/
-
+      
         //vertex data
         float vertexData[] = {
     -0.8f, -0.8f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
@@ -55,25 +49,19 @@ namespace Twili
         m_transform.position.z += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_S) ? m_speed * +dt : 0;
         m_time += dt;
 
-
-        //set offset
-       // m_program->SetUniform("offset", glm::vec2{m_time, 0});
-        
-        //set tiling
-      //  m_program->SetUniform("tiling", glm::vec2{2, 2});
-
-        
+        m_material->ProcessGui();
+        m_material->Bind();
 
         //model matrix
         m_material->GetProgram()->SetUniform("model", m_transform.GetMatrix());
 
         //view matrix
         glm::mat4 view = glm::lookAt(glm::vec3{ 0,0,2 }, glm::vec3{0,0,0}, glm::vec3{0,1,0});
-        m_program->SetUniform("view", view);
+        m_material->GetProgram()->SetUniform("view", view);
 
         //projection matrix
         glm::mat4 projection = glm::perspective(glm::radians(70.0f), 800.0f / 600.0f, 0.0f, 100.0f);
-        m_program->SetUniform("projection", projection);
+        m_material->GetProgram()->SetUniform("projection", projection);
        
         ENGINE.GetSystem<Gui>()->EndFrame();
 

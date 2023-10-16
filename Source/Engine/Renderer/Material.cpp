@@ -53,8 +53,20 @@ namespace Twili
 
 		for (size_t i = 0; i < m_textures.size(); i++)
 		{
-			m_textures[i]->SetActive(GL_TEXTURE0 + (int)i);
+			m_textures[i]->setActive(GL_TEXTURE0 + (int)i);
 			m_textures[i]->Bind();
 		}
+	}
+	void Material::ProcessGui()
+	{
+		ImGui::Begin("Material");
+
+		ImGui::ColorEdit4("Color", &color[0]);
+		ImGui::DragFloat2("Tiling", &tiling[0]);
+		ImGui::DragFloat2("Offset", &offset[0], 0.1f);
+
+
+
+		ImGui::End();
 	}
 }

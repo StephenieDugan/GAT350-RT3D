@@ -19,6 +19,8 @@ namespace Twili
 
 		res_t<Program> GetProgram() { return m_program; }
 
+		void ProcessGui();
+
 	public:
 		glm::vec4 color;
 		glm::vec2 tiling;
