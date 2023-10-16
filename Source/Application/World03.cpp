@@ -7,13 +7,13 @@ namespace Twili
 {
     bool World03::Initialize()
     {
-
-        m_program = GET_RESOURCE(Program, "Shaders/unlit_texture.prog");
+        m_material = GET_RESOURCE(Material, "materials/quad.mtrl");
+       /* m_program = GET_RESOURCE(Program, "Shaders/unlit_texture.prog");
         m_program->Use();
 
         m_texture = GET_RESOURCE(Texture, "Textures/llama.jpg");
         m_texture->Bind();
-        m_texture->setActive(GL_TEXTURE0);
+        m_texture->setActive(GL_TEXTURE0);*/
 
         //vertex data
         float vertexData[] = {
@@ -57,13 +57,15 @@ namespace Twili
 
 
         //set offset
-        m_program->SetUniform("offset", glm::vec2{m_time, 0});
+       // m_program->SetUniform("offset", glm::vec2{m_time, 0});
         
         //set tiling
-        m_program->SetUniform("tiling", glm::vec2{2, 2});
+      //  m_program->SetUniform("tiling", glm::vec2{2, 2});
+
+        
 
         //model matrix
-        m_program->SetUniform("model", m_transform.GetMatrix());
+        m_material->GetProgram()->SetUniform("model", m_transform.GetMatrix());
 
         //view matrix
         glm::mat4 view = glm::lookAt(glm::vec3{ 0,0,2 }, glm::vec3{0,0,0}, glm::vec3{0,1,0});

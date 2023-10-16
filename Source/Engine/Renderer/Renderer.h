@@ -5,6 +5,7 @@
 #include "Texture.h"
 #include "Shader.h"
 #include "Program.h"
+#include "Material.h"
 #include "VertexBuffer.h"
 #include "Gui.h"
 

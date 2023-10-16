@@ -47,6 +47,14 @@ namespace Twili
 		glTexStorage2D(m_target, 1, internalFormat, size.x, size.y);
 		glTexSubImage2D(m_target, 0, 0, 0, size.x, size.y, format, GL_UNSIGNED_BYTE, data);
 
+		glTexParameteri(m_target, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(m_target, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+		glTexParameteri(m_target, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(m_target, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+		
+
 		stbi_image_free(data);
 
 		return true;
