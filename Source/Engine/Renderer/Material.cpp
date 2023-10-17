@@ -62,7 +62,7 @@ namespace Twili
 		ImGui::Begin("Material");
 
 		ImGui::ColorEdit4("Color", &color[0]);
-		ImGui::DragFloat2("Tiling", &tiling[0]);
+		ImGui::DragFloat2("Tiling", &tiling[0], 0.1f);
 		ImGui::DragFloat2("Offset", &offset[0], 0.1f);
 
 

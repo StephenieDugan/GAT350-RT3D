@@ -1,7 +1,7 @@
 #include "VertexBuffer.h"
 
 namespace Twili
-{	
+{
 	VertexBuffer::VertexBuffer()
 	{
 		glGenVertexArrays(1, &m_vao);
@@ -31,7 +31,7 @@ namespace Twili
 		glGenBuffers(1, &m_vbo);
 		glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
 		// copy data into vertex buffer
-		glBufferData(GL_ARRAY_BUFFER,size, data,GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
 	}
 
 	void VertexBuffer::CreateIndexBuffer(GLenum indexType, GLsizei count, GLvoid* data)
@@ -43,19 +43,19 @@ namespace Twili
 
 		// create index buffer
 		glGenBuffers(1, &m_ibo);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo); // the index buffer will use GL_ELEMENT_ARRAY_BUFFER
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo);
 
 		GLsizei size = 0; // index count * number of bytes of type (sizeof() returns the number of bytes in the data type)
 		switch (m_indexType)
 		{
 		case GL_UNSIGNED_BYTE:
-			size = m_indexCount * sizeof(GLubyte); //<get number of bytes in GLubyte>
+			size = m_indexCount * sizeof(GLubyte);
 			break;
 		case GL_UNSIGNED_SHORT:
-			size = m_indexCount * sizeof(GLushort); //<get number of bytes in GLushort>
+			size = m_indexCount * sizeof(GLushort);
 			break;
 		case GL_UNSIGNED_INT:
-			size = m_indexCount * sizeof(GLuint); //<get number of bytes in GLuint>
+			size = m_indexCount * sizeof(GLuint);
 			break;
 		}
 
@@ -69,13 +69,10 @@ namespace Twili
 
 		// bind vertex buffer
 		glBindVertexBuffer(0, m_vbo, 0, stride);
-
 		// enable vertex attribute (position, color, ...)
 		glEnableVertexAttribArray(attribindex);
-
 		// set vertex attribute format
 		glVertexAttribFormat(attribindex, size, GL_FLOAT, GL_FALSE, offset);
-
 		// bind vertex attribute index to vertex buffer
 		glVertexAttribBinding(attribindex, 0);
 	}
