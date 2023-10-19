@@ -31,7 +31,9 @@ namespace Twili
 			m_textures.push_back(GET_RESOURCE(Texture, texture));
 		}
 
-		READ_DATA(document, color);
+		READ_DATA(document, diffuse);
+		READ_DATA(document, specular);
+		READ_DATA(document, shiny);
 		READ_DATA(document, tiling);
 		READ_DATA(document, offset);
 
@@ -44,10 +46,11 @@ namespace Twili
 	{
 		m_program->Use();
 
-		m_program->SetUniform("color", color);
-		m_program->SetUniform("tiling", tiling);
-		m_program->SetUniform("offset", offset);
-
+		m_program->SetUniform("material.diffuse", diffuse);
+		m_program->SetUniform("material.tiling", tiling);
+		m_program->SetUniform("material.offset", offset);
+		m_program->SetUniform("material.specular", specular);
+		m_program->SetUniform("material.shininess", shiny);
 
 
 
@@ -61,12 +64,17 @@ namespace Twili
 	{
 		ImGui::Begin("Material");
 
-		ImGui::ColorEdit4("Color", &color[0]);
-		ImGui::DragFloat2("Tiling", &tiling[0], 0.1f);
-		ImGui::DragFloat2("Offset", &offset[0], 0.1f);
-
-
-
+		ImGui::ColorEdit4(" diffuse", &diffuse[0]);
+		ImGui::ColorEdit3("specular", &specular[0]);
+		ImGui::DragFloat("shiny", &shiny, 0.1f, 2.0f, 255.0f);
+		ImGui::DragFloat2("tiling", &tiling[0], 0.1f);
+		ImGui::DragFloat2("offset", &offset[0], 0.1f);
+		
 		ImGui::End();
+
+		
+
+
+		
 	}
 }

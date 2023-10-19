@@ -18,7 +18,7 @@ namespace Twili
 			system->Initialize();
 		}
 
-		GetSystem<Renderer>()->CreateWindow("GAT350", 800, 600);
+		GetSystem<Renderer>()->CreateWindow("GAT350", 1200, 720);
 		m_systems.push_back(std::move(std::make_unique<Gui>()));
 		GetSystem<Gui>()->Initialize();
 

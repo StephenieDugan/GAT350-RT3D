@@ -1,29 +1,33 @@
 #pragma once
+
 #include "Framework/World.h"
 #include "Renderer/Renderer.h"
 #include "Core/Math/Transform.h"
+
 #include <vector>
+#include <glm/glm/glm.hpp> // Include the necessary glm header for glm types
 
 namespace Twili
 {
-	class World04 : public World
-	{
-	public:
-		bool Initialize() override;
-		void Shutdown() override;
-		void Update(float dt) override;
-		void Draw(Renderer& renderer) override;
+    class World04 : public World
+    {
+    public:
+        bool Initialize() override;
+        void Shutdown() override;
+        void Update(float dt) override;
+        void Draw(Renderer& renderer) override;
 
-	private:
-		float m_speed = 5;
-		float m_time = 0;
+    private:
+        float m_time;
+        float m_speed = 5;
 
-		Transform m_transform;
+        Transform m_transform;
+        res_t<Model> m_model;
 
-		res_t<VertexBuffer> m_vertexBuffer;
-		res_t<Program> m_program;
-		res_t<Texture> m_texture;
-		res_t<Material> m_material;
-		res_t<Model> m_model;
-	};
+        bool m_guiInitialized = false;
+
+        glm::vec3 ambientLight;    // Ambient light color
+        glm::vec3 diffuseLight;    // Diffuse light color
+        glm::vec3 lightPosition;   // Light position
+    };
 }
