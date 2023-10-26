@@ -5,10 +5,10 @@
 #include <map>
 #include <string>
 
-#define CREATE_CLASS(classname) Twili::Factory::Instance().Create<Twili::classname>(#classname);
-#define CREATE_CLASS_BASE(classbase, classname) Twili::Factory::Instance().Create<Twili::classbase>(classname);
-#define INSTANTIATE(classname) Twili::Factory::Instance().Create<Twili::Actor>(classname);
-#define INSTANTIATE_BASE(classbase, classname) Twili::Factory::Instance().Create<Twili::classbase>(classname);
+#define CREATE_CLASS(class) Twili::Factory::Instance().Create<Twili::class>(#class);
+#define CREATE_CLASS_BASE(classbase, class) Twili::Factory::Instance().Create<Twili::classbase>(#class);
+#define INSTANTIATE(class) Twili::Factory::Instance().Create<Twili::Actor>(#class);
+
 
 namespace Twili
 {

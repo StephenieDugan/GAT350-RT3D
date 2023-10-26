@@ -36,6 +36,10 @@ namespace Twili
 
 		return true;
 	}
+	void Model::Rotate(float angle, const glm::vec3& axis)
+	{
+		glm::mat4 rotationMatrix = glm::rotate(glm::mat4(1.0f), angle, axis);
+	}
 
 	void Model::Draw(GLenum primitive)
 	{
@@ -68,11 +72,11 @@ namespace Twili
 			vertex_t vertex;
 
 			vertex.position = transform * glm::vec4(glm::vec3{ mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z },1);
-			vertex.normal = transform * glm::vec4(glm::vec3{ mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z },0);
+			vertex.normal = glm::normalize(transform * glm::vec4(glm::vec3{ mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z },0));
 
 			if (mesh->mTangents)
 			{
-				vertex.tangent = glm::vec3{ mesh->mTangents[i].x, mesh->mTangents[i].y, mesh->mTangents[i].z };
+				vertex.tangent = glm::normalize(transform * glm::vec4{ mesh->mTangents[i].x, mesh->mTangents[i].y, mesh->mTangents[i].z,1 });
 			}
 			else
 			{

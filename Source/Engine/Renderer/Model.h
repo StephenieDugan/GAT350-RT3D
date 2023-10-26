@@ -24,6 +24,7 @@ namespace Twili
 	public:
 		bool Create(std::string filename, ...) override;
 		bool Load(const std::string& filename, const glm::vec3& trnaslate = glm::vec3{ 0,0,0 }, const glm::vec3& rotation = glm::vec3{ 0 }, const glm::vec3& scale = glm::vec3{1});
+		void Rotate(float angle, const glm::vec3& axis);
 		void Draw(GLenum primitive = GL_TRIANGLES); // <set the default parameter to GL_TRIANGLES>
 
 		void SetMaterial(res_t<Material> material) { m_material = material; }
