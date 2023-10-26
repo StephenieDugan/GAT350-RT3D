@@ -6,9 +6,7 @@
 #include <string>
 
 #define CREATE_CLASS(class) Twili::Factory::Instance().Create<Twili::class>(#class);
-#define CREATE_CLASS_BASE(classbase, class) Twili::Factory::Instance().Create<Twili::classbase>(#class);
-#define INSTANTIATE(class) Twili::Factory::Instance().Create<Twili::Actor>(#class);
-
+#define CREATE_CLASS_BASE(classbase, classname) Twili::Factory::Instance().Create<Twili::classbase>(classname);
 
 namespace Twili
 {

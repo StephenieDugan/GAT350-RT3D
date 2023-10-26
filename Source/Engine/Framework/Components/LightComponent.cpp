@@ -22,8 +22,8 @@ namespace Twili
 		program->SetUniform(name + ".color", color);
 		program->SetUniform(name + ".intesity", intensity);
 		program->SetUniform(name + ".range", range);
-		program->SetUniform(name + ".innerAngle", glm::radians(innerAngle));
-		program->SetUniform(name + ".outerAngle", glm::radians(outerAngle));
+		program->SetUniform(name + ".innerangle", glm::radians(innerAngle));
+		program->SetUniform(name + ".outerangle", glm::radians(outerAngle));
 	}
 
 	void LightComponent::ProcessGui()
