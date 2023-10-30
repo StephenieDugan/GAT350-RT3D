@@ -7,6 +7,9 @@
 #include <glm/glm/gtx/color_space.hpp>
 #define INTERLEAVE
 
+#include <iostream>
+#include "Core/StringUtils.h"
+
 namespace Twili
 {
 		
@@ -73,7 +76,7 @@ namespace Twili
 		material->ProcessGui();
 		material->Bind();
 
-		material->GetProgram()->SetUniform("material.shininess", shiny);
+		//material->GetProgram()->SetUniform("material.shininess", shiny);
 		
 		ENGINE.GetSystem<Gui>()->EndFrame();
 	}
@@ -89,4 +92,30 @@ namespace Twili
 		ENGINE.GetSystem<Gui>()->Draw();
 		renderer.EndFrame();
 	}
+
+	int main() {
+		std::string input = "Hello";
+
+		// Testing ToUpper function
+		std::string upper = StringUtils::ToUpper(input);
+		std::cout << "ToUpper: " << upper << std::endl;
+
+		// Testing ToLower function
+		std::string lower = StringUtils::ToLower(input);
+		std::cout << "ToLower: " << lower << std::endl;
+
+		// Testing IsEqualIgnoreCase function
+		std::string str1 = "Hello";
+		std::string str2 = "HELLO";
+		bool isEqual = StringUtils::IsEqualIgnoreCase(str1, str2);
+		std::cout << "IsEqualIgnoreCase: " << isEqual << std::endl;
+
+		// Testing CreateUnique function
+		std::string uniqueStr1 = StringUtils::CreateUnique(input);
+		std::string uniqueStr2 = StringUtils::CreateUnique(input);
+		std::cout << "Unique Strings: " << uniqueStr1 << ", " << uniqueStr2 << std::endl;
+
+		return 0;
+	}
+
 }
