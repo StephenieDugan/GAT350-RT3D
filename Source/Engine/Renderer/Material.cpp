@@ -27,6 +27,7 @@ namespace Twili
 		READ_NAME_DATA(document, "albedoTexture", albedoTextureName);
 		if (!albedoTextureName.empty())
 		{
+			params |= ALBEDO_TEXTURE_MASK;
 			albedoTexture = GET_RESOURCE(Texture, albedoTextureName);
 		}
 
@@ -34,6 +35,7 @@ namespace Twili
 		READ_NAME_DATA(document, "specularTexture", specularTextureName);
 		if (!specularTextureName.empty())
 		{
+			params |= SPECULAR_TEXTURE_MASK;
 			specularTexture = GET_RESOURCE(Texture, specularTextureName);
 		}
 
@@ -41,6 +43,7 @@ namespace Twili
 		READ_NAME_DATA(document, "emissiveTexture", emissiveTextureName);
 		if (!emissiveTextureName.empty())
 		{
+			params |= EMISSIVE_TEXTURE_MASK;
 			emissiveTexture = GET_RESOURCE(Texture, emissiveTextureName);
 		}
 
@@ -48,6 +51,7 @@ namespace Twili
 		READ_NAME_DATA(document, "normalTexture", normalTextureName);
 		if (!normalTextureName.empty())
 		{
+			params |= NORMAL_TEXTURE_MASK;
 			normalTexture = GET_RESOURCE(Texture, normalTextureName);
 		}
 
@@ -64,12 +68,12 @@ namespace Twili
 	{
 		m_program->Use();
 
+		m_program->SetUniform("material.params", params);
 		m_program->SetUniform("material.albedo", albedo);
 		m_program->SetUniform("material.specular", specular);
 		m_program->SetUniform("material.emissive", emissive);
 		m_program->SetUniform("material.tiling", tiling);
 		m_program->SetUniform("material.offset", offset);
-		m_program->SetUniform("material.specular", specular);
 		m_program->SetUniform("material.shininess", shiny);
 
 		if (albedoTexture)

@@ -4,5 +4,3 @@ INFO: Factory.h(74) Class registered: EnginePhysicsComponent
 INFO: Factory.h(74) Class registered: CameraComponent
 INFO: Factory.h(74) Class registered: Actor
 INFO: Main.cpp(18) Initialize Engine...
-ASSERT: Renderer.cpp(172) OPENGL Source: ShaderCompiler Type: Error(1) | SHADER_ID_LINK error has been generated. GLSL link failed for program 1, "": Varying "fnormal" has different type width across different shaders.
-

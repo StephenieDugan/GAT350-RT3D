@@ -30,6 +30,7 @@ namespace Twili
 		void ProcessGui();
 
 	public:
+		uint32_t params{ 0 };
 		glm::vec3 albedo{ 1 };
 		glm::vec3 specular{ 1 };
 		glm::vec3 emissive{ 0 };
