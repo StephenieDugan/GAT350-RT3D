@@ -13,7 +13,27 @@
 				{
 					"type": "ModelComponent",
 					"modelName": "models/ogre.obj",
-					"materialName": "materials/ogre.mtrl"
+					"materialName": "materials/ogre.mtrl",
+					"active": false
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"name": "skybox",
+			"persistent": true,
+			"transform": {
+				"position": [ 0, 0, 1 ],
+				"scale": [ 1, 1, 1 ],
+				"rotation": [ 0, 0, 0 ]
+			},
+			"components": [
+				{
+					"type": "ModelComponent",
+					"modelName": "models/cube.obj",
+					"materialName": "materials/skybox.mtrl",
+					"enalbeDepth": false,
+					"cullface": "front"
 				}
 			]
 		}

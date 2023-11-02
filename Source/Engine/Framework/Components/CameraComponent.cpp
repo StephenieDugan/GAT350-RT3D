@@ -20,7 +20,7 @@ namespace Twili
 	void CameraComponent::Update(float dt)
 	{
 		// View matrix
-		view = glm::lookAt(this->m_owner->transform.position, this->m_owner->transform.position + this->m_owner->transform.Forward(), glm::vec3{0, 1, 0});
+		view = glm::lookAt(this->m_owner->transform.position, this->m_owner->transform.position + this->m_owner->transform.Forward(), m_owner->transform.Up());
 		
 		// Projection matrix
 		projection = glm::perspective(glm::radians(fov), aspect, 0.01f, 100.0f);

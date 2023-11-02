@@ -1,39 +1,38 @@
 #include "StringUtils.h"
-#include <cctype> // For std::tolower, std::toupper
+#include <cctype>
+#include <sstream>
 
-namespace Twili
-{
-unsigned int StringUtils::value = 1; //initiallizes value
-
-std::string StringUtils::ToUpper(const std::string& input) 
-{
-    std::string result = input;
-    for (char& c : result) //for each loop for each character
-    {
-        c = std::toupper(c); //turns charcter uppercase
+std::string ToUpper(const std::string& str) {
+    std::string result = str;
+    for (char& c : result) {
+        c = std::toupper(c);
     }
     return result;
 }
 
-std::string StringUtils::ToLower(const std::string& input) 
-{
-    std::string result = input;
-    for (char& c : result) //for each loop for each character
-    {
-        c = std::tolower(c);//turns charcter lowercase
+std::string ToLower(const std::string& str) {
+    std::string result = str;
+    for (char& c : result) {
+        c = std::tolower(c);
     }
     return result;
 }
 
-bool StringUtils::IsEqualIgnoreCase(const std::string& str1, const std::string& str2) 
-{
-    return ToLower(str1) == ToLower(str2); //turns both lowercase and compares them
+bool IsEqualIgnoreCase(const std::string& str1, const std::string& str2) {
+    if (str1.size() != str2.size()) {
+        return false;
+    }
+    for (size_t i = 0; i < str1.size(); ++i) {
+        if (std::tolower(str1[i]) != std::tolower(str2[i])) {
+            return false;
+        }
+    }
+    return true;
 }
 
-std::string StringUtils::CreateUnique(const std::string& input) 
-{
-    return input + std::to_string(value++);//adds 1 to value every time function is called so each name is unique
+std::string CreateUnique(const std::string& str) {
+    static unsigned int counter = 0;
+    std::ostringstream oss;
+    oss << str << counter++;
+    return oss.str();
 }
-
-}
-

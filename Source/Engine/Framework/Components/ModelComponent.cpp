@@ -1,6 +1,7 @@
 #include "ModelComponent.h"
 #include "Framework/Actor.h"
 #include "Framework/Resource/ResourceManager.h"
+#include <Core/StringUtils.h>
 
 namespace Twili
 {
@@ -31,6 +32,8 @@ namespace Twili
 		auto material = model->GetMaterial();
 		material->Bind();
 		material->GetProgram()->SetUniform("model", m_owner->transform.GetMatrix());
+		glDepthMask(enableDepth);
+		glCullFace(cullface);
 		model->Draw();
 	}
 
@@ -38,5 +41,17 @@ namespace Twili
 	{
 		READ_DATA(value, modelName);
 		READ_DATA(value, materialName);
+
+
+		std::string cullfacename;
+		READ_NAME_DATA(value, "cullface", cullfacename);
+		if (IsEqualIgnoreCase(cullfacename, "front")) cullface = GL_FRONT;
+		if (IsEqualIgnoreCase(cullfacename, "back")) cullface = GL_BACK;
+		if (IsEqualIgnoreCase(cullfacename, "front_and_back")) cullface = GL_FRONT_AND_BACK;
+
+		READ_DATA(value, enableDepth);
+
+
 	}
+
 }

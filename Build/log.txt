@@ -4,3 +4,23 @@ INFO: Factory.h(74) Class registered: EnginePhysicsComponent
 INFO: Factory.h(74) Class registered: CameraComponent
 INFO: Factory.h(74) Class registered: Actor
 INFO: Main.cpp(18) Initialize Engine...
+WARNING: Texture.cpp(37) Could not create surface: night_cubemap
+WARNING: ResourceManager.h(45) Could not create resource: night_cubemap
+WARNING: Program.cpp(165) Could not find uniform location: light[0].type
+WARNING: Program.cpp(165) Could not find uniform location: light[0].position
+WARNING: Program.cpp(165) Could not find uniform location: light[0].direction
+WARNING: Program.cpp(165) Could not find uniform location: light[0].color
+WARNING: Program.cpp(165) Could not find uniform location: light[0].intesity
+WARNING: Program.cpp(165) Could not find uniform location: light[0].range
+WARNING: Program.cpp(165) Could not find uniform location: light[0].innerangle
+WARNING: Program.cpp(165) Could not find uniform location: light[0].outerangle
+WARNING: Program.cpp(165) Could not find uniform location: numLights
+WARNING: Program.cpp(165) Could not find uniform location: ambientLight
+WARNING: Program.cpp(165) Could not find uniform location: material.params
+WARNING: Program.cpp(165) Could not find uniform location: material.albedo
+WARNING: Program.cpp(165) Could not find uniform location: material.specular
+WARNING: Program.cpp(165) Could not find uniform location: material.emissive
+WARNING: Program.cpp(165) Could not find uniform location: material.tiling
+WARNING: Program.cpp(165) Could not find uniform location: material.offset
+WARNING: Program.cpp(165) Could not find uniform location: material.shininess
+WARNING: Program.cpp(165) Could not find uniform location: model

@@ -12,12 +12,12 @@ namespace Twili
 		bool Initialize() override;
 		void Update(float dt) override;
 		void Draw(class Renderer& renderer) override;
-
-		//virtual float GetRadius() override { return m_model->GetRadius(); }
-
+		
 	public:
 		std::string modelName;
 		std::string materialName;
+		bool enableDepth{ true };
+		GLint cullface{ GL_BACK };
 		res_t<Model> model;
 	};
 }
