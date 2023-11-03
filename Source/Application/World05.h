@@ -5,15 +5,12 @@
 #include "Core/Math/Transform.h"
 
 #include <vector>
-#include <glm/glm/glm.hpp> 
-
 
 namespace Twili
 {
-   
-
     class World05 : public World
-    { 
+    {
+       
     public:
         bool Initialize() override;
         void Shutdown() override;
@@ -23,8 +20,14 @@ namespace Twili
     private:
         float m_time;
         float m_speed = 5;
-        float shiny = 2.0f;
 
-        glm::vec3 ambientLight{ 0.2 };    // Light position
+        float m_refraction = 3;
+
+        glm::vec3 m_ambientColor{ 0.2f };
+
+        bool m_guiInitialized = false;
+
+        float shininess = 32.0f;  // Shininess property
+
     };
 }

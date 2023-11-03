@@ -9,15 +9,17 @@ namespace Twili
 	public:
 		CLASS_DECLARATION(ModelComponent)
 
-		bool Initialize() override;
+			bool Initialize() override;
 		void Update(float dt) override;
 		void Draw(class Renderer& renderer) override;
-		
+
 	public:
 		std::string modelName;
 		std::string materialName;
-		bool enableDepth{ true };
-		GLint cullface{ GL_BACK };
 		res_t<Model> model;
+
+		bool enableDepth{ true };
+		GLint cullface = { GL_BACK };
+	
 	};
 }

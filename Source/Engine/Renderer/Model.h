@@ -2,7 +2,9 @@
 #include "Framework/Resource/Resource.h"
 #include "VertexBuffer.h"
 #include "Material.h"
+#include <glm/glm/glm.hpp>
 
+// Forward declarations for Assimp types
 struct aiNode;
 struct aiMesh;
 struct aiScene;
@@ -19,18 +21,17 @@ namespace Twili
 			glm::vec2 texcoord;
 			glm::vec3 normal;
 			glm::vec3 tangent;
+			glm::mat4 m_transform;
 		};
 
 	public:
 		bool Create(std::string filename, ...) override;
-		bool Load(const std::string& filename, const glm::vec3& trnaslate = glm::vec3{ 0,0,0 }, const glm::vec3& rotation = glm::vec3{ 0 }, const glm::vec3& scale = glm::vec3{1});
+		bool Load(const std::string& filename, const glm::vec3& translate = glm::vec3(0), const glm::vec3& rotation = glm::vec3(0), const glm::vec3& scale = glm::vec3(1));
+		void Draw(GLenum primitive = GL_TRIANGLES);
+
 		void Rotate(float angle, const glm::vec3& axis);
-		void Draw(GLenum primitive = GL_TRIANGLES); // <set the default parameter to GL_TRIANGLES>
-
 		void SetMaterial(res_t<Material> material) { m_material = material; }
-		res_t<Material> GetMaterial() {  return m_material; }
-
-		
+		res_t<Material> GetMaterial() { return m_material; }
 
 	private:
 		void ProcessNode(aiNode* node, const aiScene* scene, const glm::mat4& transform);

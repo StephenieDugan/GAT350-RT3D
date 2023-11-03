@@ -3,14 +3,14 @@
 #include "Font.h"
 #include "Model.h"
 #include "Texture.h"
-#include "Cubemap.h"
+#include "Renderer/Cubemap.h"
 #include "Shader.h"
-#include "Program.h"
 #include "Material.h"
+#include "Program.h"
+#include "GUI.h"
 #include "VertexBuffer.h"
-#include "Gui.h"
 
-#include "glad/include/glad/glad.h"
+#include <glad/include/glad/glad.h>
 #include <SDL2-2.28.4/include/SDL.h>
 #include <string>
 
@@ -50,5 +50,7 @@ namespace Twili
 		SDL_Renderer* m_renderer = nullptr;
 		SDL_Window* m_window = nullptr;
 		SDL_GLContext m_context = nullptr;
+
+		
 	};
 }

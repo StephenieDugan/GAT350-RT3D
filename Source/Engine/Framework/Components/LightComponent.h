@@ -18,16 +18,18 @@ namespace Twili
 	public:
 		enum eType
 		{
-			POINT,
-			DIRECTIONAL,
-			SPOT
+			Point,
+			Directional,
+			Spot
 		};
 
-		eType type = eType::POINT;
+		eType type = eType::Point;
 		glm::vec3 color{ 1 };
 		float intensity = 1;
 		float range = 20;
-		float innerAngle = 20;
-		float outerAngle = 30;
+		float innerangle = 20;
+		float outerangle = 30;
+
+
 	};
 }

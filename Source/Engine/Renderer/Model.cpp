@@ -1,120 +1,123 @@
 #include "Model.h"
 #include "Core/Core.h"
 #include "Framework/Resource/ResourceManager.h"
+
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
-
 namespace Twili
 {
-	bool Model::Create(std::string filename, ...)
-	{
-		// TODO load json model file
+    bool Model::Create(std::string filename, ...)
+    {
+        // TODO: Load JSON model file if needed
 
-		return Load(filename);
-	}
+        return Load(filename);
+    }
 
-	bool Model::Load(const std::string& filename, const glm::vec3& translate, const glm::vec3& rotation, const glm::vec3& scale)
-	{
-		Assimp::Importer importer;
-		const aiScene* scene = importer.ReadFile(filename, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_CalcTangentSpace);
+    bool Model::Load(const std::string& filename, const glm::vec3& translate, const glm::vec3& rotation, const glm::vec3& scale)
+    {
+        Assimp::Importer importer;
+        const aiScene* scene = importer.ReadFile(filename, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_CalcTangentSpace);
 
-		if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
-		{
-			WARNING_LOG("Could not load assimp file %s" << importer.GetErrorString());
-			return false;
-		}
+        if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
+        {
+            WARNING_LOG("Could not load Assimp file " << importer.GetErrorString()); // Use ',' instead of '<<' for log messages
+            return false;
+        }
 
-		glm::mat4 mt = glm::translate(translate);
-		glm::mat4 mr = glm::eulerAngleYXZ(glm::radians(rotation.y), glm::radians(rotation.x), glm::radians(rotation.z));
-		glm::mat4 ms = glm::scale(scale);
+        glm::mat4 mt = glm::translate(translate);
+        glm::mat4 mr = glm::eulerAngleYXZ(glm::radians(rotation.y), glm::radians(rotation.x), glm::radians(rotation.z));
+        glm::mat4 ms = glm::scale(scale);
 
-		glm::mat4 mx = mt * mr * ms;
+        glm::mat4 mx = mt * mr * ms;
 
-		ProcessNode(scene->mRootNode, scene, mx);
+        ProcessNode(scene->mRootNode, scene, mx);
 
-		return true;
-	}
-	void Model::Rotate(float angle, const glm::vec3& axis)
-	{
-		glm::mat4 rotationMatrix = glm::rotate(glm::mat4(1.0f), angle, axis);
-	}
+        return true;
+    }
 
-	void Model::Draw(GLenum primitive)
-	{
-		m_material->Bind();
-		m_vertexBuffer->Draw(primitive); //<draw the vertex buffer passing in the primitive>
-	}
+    void Model::Draw(GLenum primitive)
+    {
+        m_material->Bind();
 
-	void Model::ProcessNode(aiNode* node, const aiScene* scene, const glm::mat4& transform)
-	{
-		// process the current node meshes
-		for (unsigned int i = 0; i < node->mNumMeshes; i++)
-		{
-			aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-			ProcessMesh(mesh, scene, transform);
-		}
-		// process the current node children
-		for (unsigned int i = 0; i < node->mNumChildren; i++)
-		{
-			ProcessNode(node->mChildren[i], scene, transform);
-		}
-	}
+        m_vertexBuffer->Draw(primitive);
+    }
+    void Model::Rotate(float angle, const glm::vec3& axis)
+    {
+        glm::mat4 rotationMatrix = glm::rotate(glm::mat4(1.0f), angle, axis);
+    }
+    void Model::ProcessNode(aiNode* node, const aiScene* scene, const glm::mat4& transform)
+    {
+        // Process the current node's meshes
+        for (unsigned int i = 0; i < node->mNumMeshes; i++)
+        {
+            aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
+            ProcessMesh(mesh, scene, transform);
+        }
 
-	void Model::ProcessMesh(aiMesh* mesh, const aiScene* scene, const glm::mat4& transform)
-	{
-		std::vector<vertex_t> vertices;
+        // Process the current node's children
+        for (unsigned int i = 0; i < node->mNumChildren; i++)
+        {
+            ProcessNode(node->mChildren[i], scene, transform);
+        }
+    }
 
-		// get model vertex attributes
-		for (size_t i = 0; i < mesh->mNumVertices; i++)
-		{
-			vertex_t vertex;
+    void Model::ProcessMesh(aiMesh* mesh, const aiScene* scene, const glm::mat4& transform)
+    {
+        std::vector<vertex_t> vertices;
 
-			vertex.position = transform * glm::vec4(glm::vec3{ mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z },1);
-			vertex.normal = glm::normalize(transform * glm::vec4(glm::vec3{ mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z },0));
+        // Get model vertex attributes
+        for (size_t i = 0; i < mesh->mNumVertices; i++)
+        {
+            vertex_t vertex;
 
-			if (mesh->mTangents)
-			{
-				vertex.tangent = glm::normalize(transform * glm::vec4{ mesh->mTangents[i].x, mesh->mTangents[i].y, mesh->mTangents[i].z,1 });
-			}
-			else
-			{
-				vertex.tangent = { 0, 0, 0 };
-			}
+            vertex.position = transform * glm::vec4(mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z, 1);
+            vertex.normal = glm::normalize(transform * glm::vec4{ mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z, 0 });
 
-			if (mesh->mTextureCoords[0])
-			{
-				vertex.texcoord = { mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y };
-			}
-			else
-			{
-				vertex.texcoord = { 0, 0 };
-			}
+            if (mesh->mTangents)
+            {
+                vertex.tangent = glm::normalize(transform * glm::vec4{mesh->mTangents[i].x, mesh->mTangents[i].y, mesh->mTangents[i].z, 0});
+            }
+            else
+            {
+                vertex.tangent = glm::vec3(0, 0, 0);
+            }
 
-			vertices.push_back(vertex);
-		}
+            if (mesh->mTextureCoords[0])
+            {
+                vertex.texcoord = glm::vec2(mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y);
+            }
+            else
+            {
+                vertex.texcoord = glm::vec2(0, 0);
+            }
 
-		// create vertex buffer and attributes
-		m_vertexBuffer = std::make_shared<VertexBuffer>();
-		m_vertexBuffer->CreateVertexBuffer((GLsizei)(sizeof(vertex_t) * vertices.size()), (GLsizei)vertices.size(), vertices.data());
-		m_vertexBuffer->SetAttribute(0, 3, sizeof(vertex_t), 0);
-		m_vertexBuffer->SetAttribute(1, 2, sizeof(vertex_t), offsetof(vertex_t, texcoord));
-		m_vertexBuffer->SetAttribute(2, 3, sizeof(vertex_t), offsetof(vertex_t, normal));
-		m_vertexBuffer->SetAttribute(3, 3, sizeof(vertex_t), offsetof(vertex_t, tangent));
+            vertices.push_back(vertex);
+        }
 
-		// get model index vertices
-		std::vector<GLuint> indices;
-		for (size_t i = 0; i < mesh->mNumFaces; i++)
-		{
-			aiFace face = mesh->mFaces[i];
-			for (size_t j = 0; j < face.mNumIndices; j++)
-			{
-				indices.push_back(face.mIndices[j]);
-			}
-		}
+        // Create vertex buffer and attributes
+        m_vertexBuffer = std::make_shared<VertexBuffer>();
+        m_vertexBuffer->CreateVertexBuffer(static_cast<GLsizei>(sizeof(vertex_t) * vertices.size()), static_cast<GLsizei>(vertices.size()), vertices.data());
 
-		// create index vertex buffer
-		m_vertexBuffer->CreateIndexBuffer(GL_UNSIGNED_INT, (GLsizei)indices.size(), indices.data());
-	}
+        m_vertexBuffer->SetAttribute(0, 3, sizeof(vertex_t), 0);
+        m_vertexBuffer->SetAttribute(1, 2, sizeof(vertex_t), offsetof(vertex_t, texcoord));
+        m_vertexBuffer->SetAttribute(2, 3, sizeof(vertex_t), offsetof(vertex_t, normal));
+        m_vertexBuffer->SetAttribute(3, 3, sizeof(vertex_t), offsetof(vertex_t, tangent));
+
+        // Get model index vertices
+        std::vector<GLuint> indices;
+        for (size_t i = 0; i < mesh->mNumFaces; i++)
+        {
+            aiFace face = mesh->mFaces[i];
+            for (size_t j = 0; j < face.mNumIndices; j++)
+            {
+                indices.push_back(face.mIndices[j]);
+            }
+        }
+
+        // Create an index buffer
+        m_vertexBuffer->CreateIndexBuffer(GL_UNSIGNED_INT, static_cast<GLsizei>(indices.size()), indices.data());
+    }
+
 }

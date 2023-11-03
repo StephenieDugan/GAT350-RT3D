@@ -7,5 +7,6 @@ namespace Twili
 	{
 	public:
 		virtual void Draw(class Renderer& renderer) = 0;
+		
 	};
 }

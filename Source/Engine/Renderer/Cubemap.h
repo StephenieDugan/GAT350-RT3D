@@ -1,5 +1,5 @@
 #pragma once
-#include "Texture.h"
+#include "Renderer/Texture.h"
 #include <vector>
 
 namespace Twili
@@ -10,7 +10,5 @@ namespace Twili
 		bool Create(std::string filename, ...) override;
 		bool Load(const std::vector<std::string>& filenames);
 
-	private:
-		
 	};
 }

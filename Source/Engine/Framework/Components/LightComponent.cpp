@@ -1,5 +1,6 @@
 #include "LightComponent.h"
 #include "Framework/Actor.h"
+#include "Core/Json.h"
 
 namespace Twili
 {
@@ -20,10 +21,10 @@ namespace Twili
 		program->SetUniform(name + ".position", m_owner->transform.position);
 		program->SetUniform(name + ".direction", m_owner->transform.Forward());
 		program->SetUniform(name + ".color", color);
-		program->SetUniform(name + ".intesity", intensity);
+		program->SetUniform(name + ".intensity", intensity);
 		program->SetUniform(name + ".range", range);
-		program->SetUniform(name + ".innerangle", glm::radians(innerAngle));
-		program->SetUniform(name + ".outerangle", glm::radians(outerAngle));
+		program->SetUniform(name + ".innerAngle", glm::radians(innerangle));
+		program->SetUniform(name + ".outerAngle", glm::radians(outerangle));
 	}
 
 	void LightComponent::ProcessGui()
@@ -31,21 +32,24 @@ namespace Twili
 		const char* types[] = { "Point", "Directional", "Spot" };
 		ImGui::Combo("Type", (int*)(&type), types, 3);
 
-		if (type == SPOT)
+		if (type == Spot)
 		{
-			ImGui::DragFloat("Inner Angle", &innerAngle, 1, 0, outerAngle);
-			ImGui::DragFloat("Outer Angle", &outerAngle, 1, innerAngle, 90);
+			ImGui::DragFloat("Inner Angle", &innerangle, 1, 0, outerangle);
+			ImGui::DragFloat("Outer Angle", &outerangle, 1, innerangle, 90);
 		}
 
 		ImGui::ColorEdit3("Color", glm::value_ptr(color));
 		ImGui::DragFloat("Intensity", &intensity, 0.1f, 0, 10);
-		if (type != DIRECTIONAL) ImGui::DragFloat("Range", &range, 0.1f, 0.1f, 50);
+		if (type != Directional) ImGui::DragFloat("Range", &range, 0.1f, 0.1f, 50);
 
 
 	}
 
 	void LightComponent::Read(const Twili::json_t& value)
 	{
-		// read json file
+		READ_DATA(value, intensity);
+		READ_DATA(value, range);
+		READ_DATA(value, innerangle);
+		READ_DATA(value, outerangle);
 	}
 }

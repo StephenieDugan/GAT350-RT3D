@@ -1,5 +1,5 @@
 #include "Cubemap.h"
-#include "Renderer.h"
+#include "Renderer/Renderer.h"
 #include "Core/Logger.h"
 
 #include <cstdarg>
@@ -34,6 +34,7 @@ namespace Twili
 		m_target = GL_TEXTURE_CUBE_MAP;
 
 		glGenTextures(1, &m_texture);
+
 		glBindTexture(m_target, m_texture);
 
 		GLuint targets[] =
@@ -49,7 +50,7 @@ namespace Twili
 		for (size_t i = 0; i < filenames.size(); i++)
 		{
 			int channels = 0;
-			unsigned char* data = stbi_load(filenames[i].c_str(), &size.x, &size.y, &channels, 0);
+			unsigned char* data = stbi_load(filenames[i].c_str(), &m_size.x, &m_size.y, &channels, 0);
 			if (!data)
 			{
 				WARNING_LOG("Could not create surface: " << filenames[i]);
@@ -59,7 +60,7 @@ namespace Twili
 			GLenum internalFormat = (channels == 4) ? GL_RGBA8 : GL_RGB8;
 			GLenum format = (channels == 4) ? GL_RGBA : GL_RGB;
 
-			glTexImage2D(targets[i], 0, GL_RGB, size.x, size.y, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+			glTexImage2D(targets[i], 0, GL_RGB, m_size.x, m_size.y, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
 			stbi_image_free(data);
 		}
 
