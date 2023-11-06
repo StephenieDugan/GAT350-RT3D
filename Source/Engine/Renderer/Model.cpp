@@ -39,8 +39,6 @@ namespace Twili
 
     void Model::Draw(GLenum primitive)
     {
-        m_material->Bind();
-
         m_vertexBuffer->Draw(primitive);
     }
     void Model::Rotate(float angle, const glm::vec3& axis)

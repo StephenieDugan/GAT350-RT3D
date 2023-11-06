@@ -30,8 +30,7 @@ namespace Twili
 		void Draw(GLenum primitive = GL_TRIANGLES);
 
 		void Rotate(float angle, const glm::vec3& axis);
-		void SetMaterial(res_t<Material> material) { m_material = material; }
-		res_t<Material> GetMaterial() { return m_material; }
+		
 
 	private:
 		void ProcessNode(aiNode* node, const aiScene* scene, const glm::mat4& transform);
@@ -39,6 +38,5 @@ namespace Twili
 
 	private:
 		res_t<VertexBuffer> m_vertexBuffer;
-		res_t<Material> m_material;
 	};
 }

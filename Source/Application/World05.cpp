@@ -40,6 +40,13 @@ namespace Twili
 			cameraComponent->SetPerspective(70.0f, ENGINE.GetSystem<Renderer>()->GetWidth() / (float)ENGINE.GetSystem<Renderer>()->GetHeight(), 0.1f, 100.0f);
 			actor->AddComponent(std::move(cameraComponent));
 
+			auto cameracontroller = CREATE_CLASS(CameraController);
+			cameracontroller->speed = 5;
+			cameracontroller->sensitivity = 0.5f;
+			cameracontroller->m_owner = actor.get();
+			cameracontroller->Initialize();
+			actor->AddComponent(std::move(cameracontroller));
+
 			m_scene->Add(std::move(actor));
 
 		}
@@ -68,7 +75,7 @@ namespace Twili
 			actor->transform.position.z += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_S) ? m_speed * dt : 0;
 		}
 		
-		auto material = actor->GetComponent<ModelComponent>()->model->GetMaterial();
+		auto material = actor->GetComponent<ModelComponent>()->material;
 
 		material->ProcessGui();
 		material->Bind();

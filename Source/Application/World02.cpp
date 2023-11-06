@@ -172,6 +172,8 @@ namespace Twili
 
     void World02::Update(float dt)
     {
+        auto position = ENGINE.GetSystem<InputSystem>()->GetMousePosition();
+        //position /= glm::vec2
         m_angle += 90 + dt;
 
         m_position.y += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_W) ? dt : 0;
