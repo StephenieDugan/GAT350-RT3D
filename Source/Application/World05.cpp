@@ -51,6 +51,16 @@ namespace Twili
 
 		}
 
+		for (int i = 0; i < 2; i++) 
+		{
+			auto actor = CREATE_CLASS_BASE(Actor, "tree");
+			actor->name = CreateUnique("tree");
+			actor->transform.position = glm::vec3{ randomf(-10,10),0,randomf(-10,10) };
+			actor->transform.scale = glm::vec3{ randomf(0.5f,0.3f),randomf(0.5f,0.3f),0 };
+
+			actor->Initialize();
+			m_scene->Add(std::move(actor));
+		}
 		return true;
 	}
 

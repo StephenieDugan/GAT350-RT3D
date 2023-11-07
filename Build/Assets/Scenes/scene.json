@@ -92,6 +92,67 @@
 		},
 		{
 			"type": "Actor",
+			"name": "sprite",
+			"persistent": true,
+			"transform": {
+				"position": [
+					-1,
+					0,
+					1
+				],
+				"scale": [
+					1,
+					1,
+					1
+				],
+				"rotation": [
+					0,
+					0,
+					0
+				]
+			},
+			"components": [
+				{
+					"type": "ModelComponent",
+					"modelName": "models/quad.obj",
+					"materialName": "materials/sprite.mtrl",
+					"active": true
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"name": "tree",
+			"persistent": true,
+			"prototype": true,
+			"transform": {
+				"position": [
+					-1,
+					0,
+					1
+				],
+				"scale": [
+					1,
+					1,
+					1
+				],
+				"rotation": [
+					0,
+					0,
+					0
+				]
+			},
+			"components": [
+				{
+					"type": "ModelComponent",
+					"modelName": "models/quad.obj",
+					"materialName": "materials/tree.mtrl",
+					"active": false
+				}
+			]
+		},
+		{
+			"type": "Actor",
 			"name": "skybox",
 			"persistent": true,
 			"transform": {
