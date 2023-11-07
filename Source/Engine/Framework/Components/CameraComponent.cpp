@@ -18,7 +18,8 @@ namespace Twili {
 
     void CameraComponent::Update(float dt) {
         // Set view matrix with glm::lookAt function, use owner position
-        view = glm::lookAt(m_owner->transform.position, m_owner->transform.position + m_owner->transform.Forward(), glm::vec3(0, 1, 0));
+        view = glm::lookAt(m_owner->transform.position, m_owner->transform.position + m_owner->transform.Forward(), m_owner->transform.Up());
+        projection = glm::perspective(glm::radians(fov), aspect, near, far);
     }
 
     void CameraComponent::SetPerspective(float fov, float aspect, float near, float far) {
