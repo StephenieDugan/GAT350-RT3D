@@ -9,6 +9,7 @@
 
 #include "Components/RenderComponent.h"
 #include "Components/ModelComponent.h"
+#include "Components/ScriptComponent.h"
 #include "Components/LightComponent.h"
 #include "Components/RotateComponent.h"
 #include "Components/CameraComponent.h"

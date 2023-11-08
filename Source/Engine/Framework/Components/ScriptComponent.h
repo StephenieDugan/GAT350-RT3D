@@ -1,7 +1,7 @@
 #pragma once
 #include "Component.h"
 
-namespace kiko
+namespace Twili
 {
 	class ScriptComponent : public Component
 	{

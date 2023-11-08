@@ -16,41 +16,6 @@ namespace Twili
 		m_scene->Load("scenes/scene.json");
 		m_scene->Initialize();
 
-		{
-			auto actor = CREATE_CLASS(Actor);
-			actor->name = "light1";
-			actor->transform.position = glm::vec3{ 3, 3, 3 };
-			auto lightComponent = CREATE_CLASS(LightComponent);
-			lightComponent->type = LightComponent::eType::Point;
-			lightComponent->color = glm::rgbColor(glm::vec3{ 1, 1, 1 });
-			lightComponent->intensity = 5;
-			lightComponent->range = 60;
-			lightComponent->innerangle = 10.0f;
-			lightComponent->outerangle = 80.0f;
-			actor->AddComponent(std::move(lightComponent));
-			m_scene->Add(std::move(actor));
-		}
-		{
-			auto actor = CREATE_CLASS(Actor);
-			actor->name = "camera1";
-			actor->transform.position = glm::vec3{ 0, 0, -1 };  // Adjust the Z position
-			actor->transform.rotation = glm::radians(glm::vec3{ 0, 0, 0 });  // Rotate on the Y axis
-
-			auto cameraComponent = Twili::Factory::Instance().Create<Twili::CameraComponent>("CameraComponent");;
-			cameraComponent->SetPerspective(70.0f, ENGINE.GetSystem<Renderer>()->GetWidth() / (float)ENGINE.GetSystem<Renderer>()->GetHeight(), 0.1f, 100.0f);
-			actor->AddComponent(std::move(cameraComponent));
-
-			auto cameracontroller = CREATE_CLASS(CameraController);
-			cameracontroller->speed = 5;
-			cameracontroller->sensitivity = 0.5f;
-			cameracontroller->m_owner = actor.get();
-			cameracontroller->Initialize();
-			actor->AddComponent(std::move(cameracontroller));
-
-			m_scene->Add(std::move(actor));
-
-		}
-
 		for (int i = 0; i < 2; i++) 
 		{
 			auto actor = CREATE_CLASS_BASE(Actor, "tree");

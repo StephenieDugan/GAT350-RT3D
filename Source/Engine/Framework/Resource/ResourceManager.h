@@ -35,7 +35,7 @@ namespace Twili
 	template<typename T>
 	inline bool ResourceManager::Add(const std::string& name, res_t<T> resource)
 	{
-		if (m_resources.find(filename) != m_resources.end())
+		if (m_resources.find(name) != m_resources.end())
 		{
 			WARNING_LOG("Resource already exists: " << name);
 			return false;
