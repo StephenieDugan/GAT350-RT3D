@@ -58,4 +58,10 @@ namespace Twili
 		READ_DATA(value, sensitivity);
 	}
 
+	void CameraController::ProcessGui()
+	{
+		ImGui::DragFloat("Speed", &speed, 0.1f);
+		ImGui::DragFloat("Sensitivity", &sensitivity, 0.1f);
+	}
+
 }

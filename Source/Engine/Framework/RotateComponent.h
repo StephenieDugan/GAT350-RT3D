@@ -3,10 +3,10 @@
 
 namespace Twili
 {
-	class CameraController : public Component
+	class RotateComponent : public Component
 	{
 	public:
-		CLASS_DECLARATION(CameraController)
+		CLASS_DECLARATION(RotateComponent)
 
 		bool Initialize() override;
 		void Update(float dt) override;
@@ -20,3 +20,4 @@ namespace Twili
 		float pitch = 0;
 	};
 }
+
