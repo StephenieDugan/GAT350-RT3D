@@ -3,6 +3,7 @@
 #include "Font.h"
 #include "Model.h"
 #include "Texture.h"
+#include "FrameBuffer.h"
 #include "Renderer/Cubemap.h"
 #include "Shader.h"
 #include "Material.h"
@@ -28,7 +29,7 @@ namespace Twili
 		void Update() {}
 
 		void CreateWindow(const std::string& title, int width, int height);
-		void BeginFrame();
+		void BeginFrame(const glm::vec3& color = glm::vec3(0));
 		void EndFrame();
 
 		void SetColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a);

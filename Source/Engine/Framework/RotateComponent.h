@@ -1,5 +1,5 @@
 #pragma once
-#include "Component.h"
+#include "Components/Component.h"
 
 namespace Twili
 {
@@ -8,16 +8,14 @@ namespace Twili
 	public:
 		CLASS_DECLARATION(RotateComponent)
 
-		bool Initialize() override;
+			bool Initialize() override;
 		void Update(float dt) override;
 
 		void ProcessGui();
 
 	public:
-		float sensitivity = 0.2f;
-		float speed = 3;
-		float yaw = 0;
-		float pitch = 0;
+		glm::vec3 euler{ 0 };
+
 	};
 }
 

@@ -15,8 +15,11 @@ namespace Twili
 		~Texture();
 
 		virtual bool Create(std::string filename, ...) override;
+		bool CreateTexture(int width, int height);
+		bool CreateDepthTexture(int width, int height);
 
 		bool Load(const std::string& filename, class Renderer& renderer);
+
 		const glm::vec2& GetSize() const { return m_size; }
 
 		void SetActive(GLuint unit) { glActiveTexture(unit); }
@@ -24,6 +27,7 @@ namespace Twili
 
 
 		friend class Renderer;
+		friend class Framebuffer;
 
 	protected:
 		GLuint m_texture = 0;

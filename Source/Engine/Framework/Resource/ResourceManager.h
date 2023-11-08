@@ -8,15 +8,20 @@
 #include <vector>
 
 #define GET_RESOURCE(type, filename, ...) Twili::ResourceManager::Instance().Get<type>(filename, __VA_ARGS__)
+#define ADD_RESOURCE(name,resource) Twili::ResourceManager::Instance().Add(name, resource);
 
 namespace Twili
 {
+
 	// ResourceManager - Stores all currently loaded resources in a map
 	// uses string (filename) as the key and a res_t (shared pointer) to the resource data
 	// if the resource isn't in thre map, it is loaded/created and placed in the map
 	class ResourceManager : public Singleton<ResourceManager>
 	{
 	public:
+		template <typename T>
+		bool Add(const std::string& name, res_t<T> resource);
+
 		template<typename T, typename ... TArgs>
 		res_t<T> Get(const std::string& filename, TArgs ... args);
 		
@@ -26,6 +31,19 @@ namespace Twili
 	private:
 		std::map<std::string, res_t<Resource>> m_resources;
 	};
+
+	template<typename T>
+	inline bool ResourceManager::Add(const std::string& name, res_t<T> resource)
+	{
+		if (m_resources.find(filename) != m_resources.end())
+		{
+			WARNING_LOG("Resource already exists: " << name);
+			return false;
+		}
+		m_resources[name] = resource;
+
+		return true;
+	}
 
 	template<typename T, typename ...TArgs>
 	inline res_t<T> ResourceManager::Get(const std::string& filename, TArgs ...args)
@@ -46,8 +64,9 @@ namespace Twili
 			return res_t<T>();
 		}
 
-		// add resource to resource map, return resource
-		m_resources[filename] = resource;
+		// add resource to resource map
+		Add(filename, resource);
+
 		return resource;
 	}
 	template<typename T>

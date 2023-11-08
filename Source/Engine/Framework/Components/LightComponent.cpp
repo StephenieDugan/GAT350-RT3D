@@ -47,9 +47,18 @@ namespace Twili
 
 	void LightComponent::Read(const Twili::json_t& value)
 	{
+		std::string lightTypeName;
+		READ_NAME_DATA(value, "lightType", lightTypeName);
+		if (IsEqualIgnoreCase(lightTypeName, "point")) type = LightComponent::eType::Point;
+		if (IsEqualIgnoreCase(lightTypeName, "directional")) type = LightComponent::eType::Directional;
+		if (IsEqualIgnoreCase(lightTypeName, "spot")) type = LightComponent::eType::Spot;
+
+		READ_DATA(value, color);
 		READ_DATA(value, intensity);
 		READ_DATA(value, range);
 		READ_DATA(value, innerangle);
 		READ_DATA(value, outerangle);
+
+
 	}
 }
