@@ -6,7 +6,7 @@
 			"persistent": true,
 			"transform": {
 				"position": [
-					0,
+					-1,
 					0,
 					0
 				],
@@ -26,37 +26,20 @@
 					"type": "ModelComponent",
 					"modelName": "models/ogre.obj",
 					"materialName": "materials/ogre.mtrl",
-					"active": false
+					"active": true
 				}
 			]
 		},
 	{
 			"type": "Actor",
-			"name": "cube",
+			"name": "postprocess",
 			"persistent": true,
 			"prototype": false,
-			"transform": {
-				"position": [
-					1,
-					0,
-					1
-				],
-				"scale": [
-					1,
-					1,
-					1
-				],
-				"rotation": [
-					0,
-					0,
-					0
-				]
-			},
 			"components": [
 				{
 					"type": "ModelComponent",
-					"modelName": "models/cube.obj",
-					"materialName": "materials/framebuffer.mtrl",
+					"modelName": "models/quad.obj",
+					"materialName": "materials/post_process.mtrl",
 					"active": false
 				}
 			]

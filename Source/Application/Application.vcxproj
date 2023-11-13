@@ -167,6 +167,7 @@
     <None Include="..\..\Build\Assets\Materials\grid.mtrl" />
     <None Include="..\..\Build\Assets\Materials\multi_grid.mtrl" />
     <None Include="..\..\Build\Assets\Materials\ogre.mtrl" />
+    <None Include="..\..\Build\Assets\Materials\post_process.mtrl" />
     <None Include="..\..\Build\Assets\Materials\sprite.mtrl" />
     <None Include="..\..\Build\Assets\Materials\phong.mtrl" />
     <None Include="..\..\Build\Assets\Materials\quad.mtrl" />
@@ -190,6 +191,9 @@
     <None Include="..\..\Build\Assets\Shaders\lit_texture_phong.frag" />
     <None Include="..\..\Build\Assets\Shaders\lit_texture_phong.vert" />
     <None Include="..\..\Build\Assets\Shaders\multi_lit_texture.prog" />
+    <None Include="..\..\Build\Assets\Shaders\post_process.frag" />
+    <None Include="..\..\Build\Assets\Shaders\post_process.prog" />
+    <None Include="..\..\Build\Assets\Shaders\post_process.vert" />
     <None Include="..\..\Build\Assets\Shaders\reflection.prog" />
     <None Include="..\..\Build\Assets\Shaders\reflection.vert" />
     <None Include="..\..\Build\Assets\Shaders\refraction.prog" />
