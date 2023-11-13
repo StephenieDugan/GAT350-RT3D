@@ -1,4 +1,4 @@
-#include "World06.h"
+#include "World07.h"
 #include "Framework/Framework.h"
 #include "Input/InputSystem.h"
 #include "imgui/imgui.h"
@@ -9,7 +9,7 @@ namespace Twili
 {
 	
 
-	bool World06::Initialize()
+	bool World07::Initialize()
 	{
 		m_scene = std::make_unique<Scene>();
 		m_scene->Load("Scenes/scen_Framebuffer.json");
@@ -32,11 +32,11 @@ namespace Twili
 		return true;
 	}
 
-	void World06::Shutdown()
+	void World07::Shutdown()
 	{
 	}
 
-    void World06::Update(float dt) {
+    void World07::Update(float dt) {
         m_time += dt;
 
         ENGINE.GetSystem<Gui>()->BeginFrame();
@@ -122,7 +122,7 @@ namespace Twili
 		ENGINE.GetSystem<Gui>()->EndFrame();
 	}
 
-	void World06::Draw(Renderer& renderer)
+	void World07::Draw(Renderer& renderer)
 	{
 		//**PASS 1 ***
 		m_scene->GetActorByName("postprocess")->active = false;
