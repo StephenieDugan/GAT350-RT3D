@@ -52,7 +52,7 @@ namespace Twili
 	inline res_t<T> ResourceManager::Get(const std::string& filename, TArgs ...args)
 	{
 		std::string low = ToLower(filename);
-
+		std::cout << "Getting " << filename << std::endl;
 
 		// find resource in resources map
 		if (m_resources.find(low) != m_resources.end())

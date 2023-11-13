@@ -1,0 +1,160 @@
+{
+	"actors": [
+		{
+			"type": "Actor",
+			"name": "house",
+			"persistent": true,
+			"transform": {
+				"position": [
+					0,
+					0,
+					0
+				],
+				"scale": [
+					0.1,
+					0.1,
+					0.1
+				],
+				"rotation": [
+					0,
+					0,
+					0
+				]
+			},
+			"components": [
+				{
+					"type": "ModelComponent",
+					"modelName": "Fantasie/Simple_Fantasy_SourceFiles/obj/SF_Bld_Elven_Bridge_02.obj",
+					"materialName": "materials/fantasy.mtrl"
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"name": "ground",
+			"persistent": true,
+			"transform": {
+				"position": [
+					0,
+					0,
+					0
+				],
+				"scale": [
+					1,
+					1,
+					1
+				],
+				"rotation": [
+					0,
+					0,
+					0
+				]
+			},
+			"components": [
+				{
+					"type": "ModelComponent",
+					"modelName": "Fantasie/Simple_Fantasy_SourceFiles/obj/SF_Env_Path_Straight_01.obj",
+					"materialName": "materials/refraction.mtrl"
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"name": "tree",
+			"persistent": true,
+			"prototype": true,
+			"transform": {
+				"position": [
+					-1,
+					0,
+					1
+				],
+				"scale": [
+					1,
+					1,
+					1
+				],
+				"rotation": [
+					0,
+					0,
+					0
+				]
+			},
+			"components": [
+				{
+					"type": "ModelComponent",
+					"modelName": "models/quad.obj",
+					"materialName": "materials/tree.mtrl",
+					"active": false
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"name": "skybox",
+			"persistent": true,
+			"transform": {
+				"position": [
+					0,
+					0,
+					1
+				],
+				"scale": [
+					1,
+					1,
+					1
+				],
+				"rotation": [
+					0,
+					0,
+					0
+				]
+			},
+			"components": [
+				{
+					"type": "ModelComponent",
+					"modelName": "models/cube.obj",
+					"materialName": "materials/skybox.mtrl",
+					"enalbeDepth": false,
+					"cullface": "front"
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"name": "camera1",
+			"persistent": true,
+			"components": [
+				{
+					"type": "CameraComponent",
+					"fov": 45,
+					"aspect": 0.0,
+					"near": 0.1,
+					"far": 100.0
+				},
+				{
+					"type": "CameraController",
+					"sensitivity": 0.2,
+					"speed": 3,
+					"yaw": 0,
+					"pitch": 0
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"name": "light1",
+			"components": [
+				{
+					"type": "LightComponent",
+					"lightType": "Point",
+					"color": [ 1.0, 1.0, 1.0 ],
+					"intensity": 0.8,
+					"range":20,
+					"innerangle": 20,
+					"outerangle": 30
+				}
+			]
+		}
+	]
+}

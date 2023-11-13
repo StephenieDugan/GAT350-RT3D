@@ -60,26 +60,26 @@ float attenuation(in vec3 position1, in vec3 position2, in float range)
 void phong(in Light light, in vec3 position, in vec3 normal, out vec3 diffuse, out vec3 specular)
 {
  //diffuse
-   vec3 lightDir = (light.type == DIRECTIONAL) ? normalize(-light.direction) : normalize(light.position - fposition);
+   vec3 lightDir = (light.type == DIRECTIONAL) ? normalize(-light.direction) : normalize(light.position - position);
    
    float spotIntensity = 1;
    if(light.type == SPOT)
    {
     float angle = acos(dot(light.direction, -lightDir));
     //if(angle > light.innerangle) spotIntensity = 0;
-    spotIntensity = smoothstep(light.outerangle, light.innerangle, angle);
+    spotIntensity = smoothstep(light.outerangle + 0.001, light.innerangle, angle);
 
    }
    
     float intensity = max(dot(lightDir, normal), 0) * spotIntensity;
-    diffuse = (light.color * intensity) * light.intesity;
+    diffuse = (light.color * intensity);
 
     //specular 
     specular = vec3(0);
     if (intensity > 0)
     {
         vec3 reflection = reflect(-lightDir, fnormal);
-        vec3 viewDir = normalize(-fposition);
+        vec3 viewDir = normalize(-position);
         intensity = max(dot(reflection, viewDir), 0);
         intensity = pow(intensity, material.shininess);
         specular =  vec3(intensity * spotIntensity) ;
