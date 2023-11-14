@@ -15,6 +15,8 @@ namespace Twili
 
 		void ProcessGui() override;
 
+		glm::mat4 GetShadowMatrix();
+
 	public:
 		enum eType
 		{
@@ -30,6 +32,9 @@ namespace Twili
 		float innerangle = 20;
 		float outerangle = 30;
 
+		bool castShadow = false;
+		float shadowSize = 10;
+		float shadowBias = 0.005f;
 
 	};
 }

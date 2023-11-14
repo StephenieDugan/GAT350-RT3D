@@ -70,15 +70,20 @@ namespace Twili
 
 	void Renderer::BeginFrame(const glm::vec3& color)
 	{
+		glDepthMask(GL_TRUE);
 		glClearColor(color.r, color.g, color.b, 1);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glDepthMask(GL_TRUE);
 
 	}
 
 	void Renderer::EndFrame()
 	{
 		SDL_GL_SwapWindow(m_window);
+	}
+
+	void Renderer::ClearDepth()
+	{
+		glClear(GL_DEPTH_BUFFER_BIT);
 	}
 
 	void Renderer::SetColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a)

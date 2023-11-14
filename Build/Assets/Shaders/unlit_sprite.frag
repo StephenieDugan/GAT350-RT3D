@@ -20,8 +20,10 @@ void main()
 {
 	vec4 texColor = texture(tex, ftexCoord);
 
-    if(texColor.a > 0.5) discard;
-	ocolor = texColor * vec4(material.albedo,1);
+    float depth = texColor.r;
+
+    if(texColor.a < 0.5) discard;
+	ocolor = vec4(vec3(depth),1) * vec4(material.albedo,1);
 }
 
 

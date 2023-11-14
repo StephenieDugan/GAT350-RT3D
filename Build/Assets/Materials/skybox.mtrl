@@ -4,8 +4,8 @@
   "cubemaps": [
     "textures/night_cubemap/posx.jpg",
     "textures/night_cubemap/negx.jpg",
-    "textures/night_cubemap/negy.jpg",
     "textures/night_cubemap/posy.jpg",
+    "textures/night_cubemap/negy.jpg",
     "textures/night_cubemap/posz.jpg",
     "textures/night_cubemap/negz.jpg"
   ]

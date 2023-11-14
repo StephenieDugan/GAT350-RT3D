@@ -16,14 +16,14 @@ namespace Twili
 		m_scene->Initialize();
 
 		auto texture = std::make_shared<Texture>();
-		texture->CreateTexture(2048, 2048);
-		ADD_RESOURCE("fb_texture", texture);
+		texture->CreateDepthTexture(2048, 2048);
+		ADD_RESOURCE("depth_texture", texture);
 
 		auto frameBuffer = std::make_shared<Framebuffer>();
-		frameBuffer->CreateFramebuffer(texture);
-		ADD_RESOURCE("fb", frameBuffer);
+		frameBuffer->CreateDepthBuffer(texture);
+		ADD_RESOURCE("depth_buffer", frameBuffer);
 
-		auto material = GET_RESOURCE(Material, "Materials/post_process.mtrl");
+		auto material = GET_RESOURCE(Material, "Materials/sprite.mtrl");
 		if (material)
 		{
 			material->albedoTexture = texture;
@@ -51,18 +51,36 @@ namespace Twili
 	void World07::Draw(Renderer& renderer)
 	{
 		//**PASS 1 ***
-		/*
-		m_scene->GetActorByName("postprocess")->active = false;
-		auto framebuffer = GET_RESOURCE(Framebuffer,"fb");
+		
+		auto framebuffer = GET_RESOURCE(Framebuffer,"depth_buffer");
 		renderer.SetViewport(framebuffer->GetSize().x, framebuffer->GetSize().y);
 		framebuffer->Bind();
 
 		// Pre-render
-		renderer.BeginFrame(glm::vec3{ 0,0,0 });
-		m_scene->Draw(renderer);
+		renderer.ClearDepth();
+		auto program = GET_RESOURCE(Program, "shaders/shadow_depth.prog");
+		program->Use();
+
+		auto lights = m_scene->GetComponents<LightComponent>();
+		for (auto light : lights) 
+		{
+			if (light->castShadow)
+			{
+				glm::mat4 shadowMatrix = light->GetShadowMatrix();
+				program->SetUniform("shadowVP", shadowMatrix);
+			}
+		}
+
+		auto models = m_scene->GetComponents<ModelComponent>();
+		for (auto model : models)
+		{
+			program->SetUniform("Model", model->m_owner->transform.GetMatrix());
+			model->model->Draw();
+		}
+
 
 		framebuffer->Unbind();
-*/
+
 		//*** PASS 2 ***
 
 		renderer.ResetViewport();

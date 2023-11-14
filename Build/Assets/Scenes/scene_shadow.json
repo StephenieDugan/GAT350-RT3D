@@ -35,9 +35,9 @@
 			"persistent": true,
 			"transform": {
 				"position": [
+					-5,
 					0,
-					0,
-					0
+					3
 				],
 				"scale": [
 					1,
@@ -55,6 +55,35 @@
 					"type": "ModelComponent",
 					"modelName": "Fantasie/Simple_Fantasy_SourceFiles/obj/SF_Env_Path_Straight_01.obj",
 					"materialName": "materials/refraction.mtrl"
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"name": "depth_debug",
+			"persistent": true,
+			"transform": {
+				"position": [
+					2.4,
+					1.4,
+					0
+				],
+				"scale": [
+					1,
+					1,
+					1
+				],
+				"rotation": [
+					0,
+					0,
+					0
+				]
+			},
+			"components": [
+				{
+					"type": "ModelComponent",
+					"modelName": "Models/quad.obj",
+					"materialName": "materials/sprite.mtrl"
 				}
 			]
 		},
@@ -82,15 +111,21 @@
 		{
 			"type": "Actor",
 			"name": "light1",
+			"persistent": true,
+			"transform": {
+				"position": [ 0, 3, 0 ],
+				"rotation": [90,0,0]
+			},
 			"components": [
 				{
 					"type": "LightComponent",
-					"lightType": "Point",
+					"lightType": "Directional",
 					"color": [ 1.0, 1.0, 1.0 ],
 					"intensity": 0.8,
-					"range":20,
+					"range": 20,
 					"innerangle": 20,
-					"outerangle": 30
+					"outerangle": 30,
+					"castShadow":  true
 				}
 			]
 		}

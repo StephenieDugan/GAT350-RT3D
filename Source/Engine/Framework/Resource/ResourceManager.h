@@ -8,8 +8,9 @@
 #include <string>
 #include <vector>
 
-#define GET_RESOURCE(type, filename, ...) Twili::ResourceManager::Instance().Get<type>(filename, __VA_ARGS__)
-#define ADD_RESOURCE(name,resource) Twili::ResourceManager::Instance().Add(name, resource);
+#define GET_RESOURCE(type, filename, ...)	Twili::ResourceManager::Instance().Get<type>(filename, __VA_ARGS__)
+#define GET_RESOURCES(type)					Twili::ResourceManager::Instance().GetAllOfType<type>()
+#define ADD_RESOURCE(name,resource)			Twili::ResourceManager::Instance().Add(name, resource)
 
 namespace Twili
 {

@@ -25,7 +25,7 @@ int main(int argc, char* argv[])
 
 	ENGINE.Initialize();
 	
-	auto world = make_unique<Twili::World06>();
+	auto world = make_unique<Twili::World07>();
 	world->Initialize();
 
 	// main loop
