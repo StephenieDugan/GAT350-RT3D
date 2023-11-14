@@ -35,6 +35,30 @@ namespace Twili
 		return (a < b) ? a : b;
 	}
 
+	template<typename T>
+	constexpr T setBits(T a, T b)
+	{
+		return a | b;
+	}
+
+	template<typename T>
+	constexpr T clearBits(T a, T b)
+	{
+		return a & ~b;
+	}
+
+	template<typename T>
+	constexpr bool testBits(T a, T b)
+	{
+		return (a & b) == b;
+	}
+
+	template<typename T>
+	constexpr T toggleBits(T a, T b)
+	{
+		return a ^ b;
+	}
+
 	template <typename T>
 	constexpr T Clamp(T value, T min, T max)
 	{
