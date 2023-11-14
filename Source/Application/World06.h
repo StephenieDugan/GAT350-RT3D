@@ -14,6 +14,9 @@ namespace Twili
         uint32_t INVERT_MASK = (1<<0);
         uint32_t GRAYSCALE_MASK = (1 << 1);
         uint32_t COLORTINT_MASK = (1 << 2);
+        uint32_t GRAIN_MASK = (1 << 3);
+        uint32_t SCANLINE_MASK = (1 << 4);
+        uint32_t KERNEL_MASK = (1 << 5);
 
 
     public:
@@ -26,6 +29,9 @@ namespace Twili
         float m_time;
         float m_speed = 5;
         float blend{ 1 };
+        float grainIntensity{ 1.0f };
+        float scanlineIntensity{ 1.0f };
+        float kernelIntensity{ 1.0f };
         float m_refraction = 3;
 
         uint32_t params{ 0 };

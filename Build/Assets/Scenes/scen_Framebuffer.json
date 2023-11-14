@@ -40,7 +40,43 @@
 					"type": "ModelComponent",
 					"modelName": "models/quad.obj",
 					"materialName": "materials/post_process.mtrl",
-					"active": false
+					"active": true
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"name": "camera1",
+			"persistent": true,
+			"components": [
+				{
+					"type": "CameraComponent",
+					"fov": 45,
+					"aspect": 0.0,
+					"near": 0.1,
+					"far": 100.0
+				},
+				{
+					"type": "CameraController",
+					"sensitivity": 0.2,
+					"speed": 3,
+					"yaw": 0,
+					"pitch": 0
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"name": "light1",
+			"components": [
+				{
+					"type": "LightComponent",
+					"lightType": "Point",
+					"color": [ 1.0, 1.0, 1.0 ],
+					"intensity": 0.8,
+					"range": 20,
+					"innerangle": 20,
+					"outerangle": 30
 				}
 			]
 		}

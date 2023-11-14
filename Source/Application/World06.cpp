@@ -23,7 +23,7 @@ namespace Twili
 		frameBuffer->CreateFramebuffer(texture);
 		ADD_RESOURCE("fb", frameBuffer);
 
-		auto material = GET_RESOURCE(Material, "Materials/post_process.mtrl");
+		auto material = GET_RESOURCE(Material, "materials/post_process.mtrl");
 		if (material)
 		{
 			material->albedoTexture = texture;
@@ -73,41 +73,38 @@ namespace Twili
             ImGui::ColorEdit3("Color Tint", glm::value_ptr(colorTint));
         }
 
-        //// Checkbox and controls for Grain
-        //effect = m_params & GRAIN_MASK;
-        //if (ImGui::Checkbox("Grain", &effect))
-        //{
-        //    (effect) ? m_params |= GRAIN_MASK : m_params &= ~GRAIN_MASK;
-        //}
+        // Checkbox and controls for Grain
+        effect = params & GRAIN_MASK;
+        if (ImGui::Checkbox("Grain", &effect))
+        {
+            (effect) ? params |= GRAIN_MASK : params &= ~GRAIN_MASK;
+        } 
+        if (params & GRAIN_MASK)
+        {
+            ImGui::SliderFloat("Grain Intensity", &grainIntensity, 0.0f, 1.0f);
+        }
 
-        //// Checkbox and controls for Scanline
-        //effect = m_params & SCANLINE_MASK;
-        //if (ImGui::Checkbox("Scanline", &effect))
-        //{
-        //    (effect) ? m_params |= SCANLINE_MASK : m_params &= ~SCANLINE_MASK;
-        //}
+        // Checkbox and controls for Scanline
+        effect = params & SCANLINE_MASK;
+        if (ImGui::Checkbox("Scanline", &effect))
+        {
+            (effect) ? params |= SCANLINE_MASK : params &= ~SCANLINE_MASK;
+        }
+        if (params & SCANLINE_MASK)
+        {
+            ImGui::SliderFloat("Scanline Intensity", &scanlineIntensity, 0.0f, 1.0f);
+        }
 
-        //// Controls for Grain and Scanline parameters
-        //if (m_params & GRAIN_MASK)
-        //{
-        //    ImGui::SliderFloat("Grain Intensity", &m_grainIntensity, 0.0f, 1.0f);
-        //}
+        effect = params & KERNEL_MASK;
+        if (ImGui::Checkbox("Kernel Effect", &effect))
+        {
+            (effect) ? params |= KERNEL_MASK : params &= ~KERNEL_MASK;
+        }
+        if (params & KERNEL_MASK)
+        {
+            ImGui::SliderFloat("Kernel Intensity", &kernelIntensity, 0.0f, 1.0f);
+        }
 
-        //if (m_params & SCANLINE_MASK)
-        //{
-        //    ImGui::SliderFloat("Scanline Intensity", &m_scanlineIntensity, 0.0f, 1.0f);
-        //}
-
-        //// Checkbox and controls for Kernel Effect
-        //effect = m_params & KERNEL_EFFECT_MASK;
-        //if (ImGui::Checkbox("Kernel Effect", &effect))
-        //{
-        //    (effect) ? m_params |= KERNEL_EFFECT_MASK : m_params &= ~KERNEL_EFFECT_MASK;
-        //}
-        //if (m_params & KERNEL_EFFECT_MASK)
-        //{
-        //    ImGui::SliderFloat("Kernel Intensity", &m_kernelIntensity, 0.0f, 1.0f);
-        //}
         ImGui::End();
 
 		//set post process shader
@@ -131,7 +128,7 @@ namespace Twili
 		framebuffer->Bind();
 
 		// Pre-render
-		renderer.BeginFrame(glm::vec3{ 0,0,0 });
+		renderer.BeginFrame(glm::vec3{ 0,0,1 });
 		m_scene->Draw(renderer);
 
 		framebuffer->Unbind();
