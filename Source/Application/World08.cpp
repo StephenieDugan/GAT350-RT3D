@@ -1,4 +1,4 @@
-#include "World07.h"
+#include "World08.h"
 #include "Framework/Framework.h"
 #include "Input/InputSystem.h"
 #include "imgui/imgui.h"
@@ -9,10 +9,10 @@ namespace Twili
 {
 	
 
-	bool World07::Initialize()
+	bool World08::Initialize()
 	{
 		m_scene = std::make_unique<Scene>();
-		m_scene->Load("Scenes/scene_shadow.json");
+		m_scene->Load("Scenes/scene_looney_tunes.json");
 		m_scene->Initialize();
 
 		auto texture = std::make_shared<Texture>();
@@ -38,11 +38,11 @@ namespace Twili
 		return true;
 	}
 
-	void World07::Shutdown()
+	void World08::Shutdown()
 	{
 	}
 
-    void World07::Update(float dt) {
+    void World08::Update(float dt) {
         m_time += dt;
 
         ENGINE.GetSystem<Gui>()->BeginFrame();
@@ -54,7 +54,7 @@ namespace Twili
 
 	}
 
-	void World07::Draw(Renderer& renderer)
+	void World08::Draw(Renderer& renderer)
 	{
 		//**PASS 1 ***
 		

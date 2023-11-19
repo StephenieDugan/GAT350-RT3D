@@ -142,8 +142,6 @@ namespace Twili
 		}
 		ImGui::End();
 
-
-
 		ImGui::Begin("Inspector");
 		auto iter = std::find_if(m_actors.begin(), m_actors.end(), [](auto& a) { return a->guiSelect; });
 		if (iter != m_actors.end())
@@ -151,6 +149,8 @@ namespace Twili
 			(*iter)->ProcessGui();
 		}
 		ImGui::End();
+
+		
 	}
 
 }

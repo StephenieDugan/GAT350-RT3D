@@ -17,6 +17,9 @@
     <Filter Include="Shaders\Cubemap">
       <UniqueIdentifier>{d4de90b3-e78e-4a5d-8ad3-d7bdf8c711d2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shaders\LitShaders">
+      <UniqueIdentifier>{a25756ca-f6fe-48db-bea6-df4a551da8bf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -43,6 +46,9 @@
     <ClCompile Include="World07.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="World08.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="World01.h">
@@ -64,6 +70,9 @@
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="World07.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="World08.h">
       <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>
@@ -92,21 +101,6 @@
     <None Include="..\..\Build\Assets\Shaders\unlit_multi_textures.prog">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="..\..\Build\Assets\Shaders\lit_texture.frag">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="..\..\Build\Assets\Shaders\lit_texture.prog">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="..\..\Build\Assets\Shaders\lit_texture.vert">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="..\..\Build\Assets\Shaders\lit_texture_phong.frag">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="..\..\Build\Assets\Shaders\lit_texture_phong.vert">
-      <Filter>Shaders</Filter>
-    </None>
     <None Include="..\..\Build\Assets\Shaders\multi_lit_texture.prog">
       <Filter>Shaders</Filter>
     </None>
@@ -125,26 +119,8 @@
     <None Include="..\..\Build\Assets\Scenes\scene.json">
       <Filter>Scenes</Filter>
     </None>
-    <None Include="..\..\Build\Assets\Shaders\lit_phong.frag">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="..\..\Build\Assets\Shaders\lit_phong.prog">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="..\..\Build\Assets\Shaders\lit_phong.vert">
-      <Filter>Shaders</Filter>
-    </None>
     <None Include="..\..\Build\Assets\Materials\phong.mtrl">
       <Filter>Materials</Filter>
-    </None>
-    <None Include="..\..\Build\Assets\Shaders\lit_phong_normal.frag">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="..\..\Build\Assets\Shaders\lit_phong_normal.prog">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="..\..\Build\Assets\Shaders\lit_phong_normal.vert">
-      <Filter>Shaders</Filter>
     </None>
     <None Include="..\..\Build\Assets\Materials\ogre.mtrl">
       <Filter>Materials</Filter>
@@ -231,6 +207,60 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="..\..\Build\Assets\Shaders\shadow_depth.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Materials\ui_light.mtrl">
+      <Filter>Materials</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Shaders\lit_phong.frag">
+      <Filter>Shaders\LitShaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Shaders\lit_phong.prog">
+      <Filter>Shaders\LitShaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Shaders\lit_phong.vert">
+      <Filter>Shaders\LitShaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Shaders\lit_phong_normal.frag">
+      <Filter>Shaders\LitShaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Shaders\lit_phong_normal.prog">
+      <Filter>Shaders\LitShaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Shaders\lit_phong_normal.vert">
+      <Filter>Shaders\LitShaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Shaders\lit_texture.frag">
+      <Filter>Shaders\LitShaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Shaders\lit_texture.prog">
+      <Filter>Shaders\LitShaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Shaders\lit_texture.vert">
+      <Filter>Shaders\LitShaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Shaders\lit_texture_phong.frag">
+      <Filter>Shaders\LitShaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Shaders\lit_texture_phong.vert">
+      <Filter>Shaders\LitShaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Scenes\scene_looney_tunes.json">
+      <Filter>Scenes</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Shaders\cel_shader.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Shaders\cel_shader.prog">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Materials\cel_shader.mtrl">
+      <Filter>Materials</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Materials\cel.mtrl">
+      <Filter>Materials</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Shaders\cel_shader.vert">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

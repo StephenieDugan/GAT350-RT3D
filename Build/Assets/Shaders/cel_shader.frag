@@ -13,6 +13,7 @@ in layout(location = 0) vec3 fposition;
 in layout(location = 1) vec3 fnormal;
 in layout(location = 2) vec2 ftexcoord;
 in layout(location = 3) vec4 fshadowcoord;
+in layout(location = 4) vec3 fviewdir;
 
 out layout(location = 0) vec4 ocolor;
 
@@ -26,6 +27,7 @@ uniform struct Material
 
     vec2 tiling;
     vec2 offset;
+
 } material;
 
 uniform struct Light
@@ -43,6 +45,12 @@ uniform struct Light
 uniform vec3 ambientLight;
 uniform int numLights = 3;
 uniform float shadowBias = 0.005;
+uniform int shadingLevels = 5;
+uniform float celSpecularCutoff = 0.3;
+const float celScaleFactor = 1.0 / shadingLevels;
+uniform float celOutline = 0.3;
+
+
 
 layout(binding = 0) uniform sampler2D albedoTexture;
 layout(binding = 1) uniform sampler2D specularTexture;
@@ -82,7 +90,9 @@ void phong(in Light light, in vec3 position, in vec3 normal, out vec3 diffuse, o
    }
    
     float intensity = max(dot(lightDir, normal), 0) * spotIntensity;
-    diffuse = (light.color * intensity);
+    float cellIntensity = floor(intensity * shadingLevels) * celScaleFactor;
+    diffuse = (light.color * cellIntensity);
+    
 
     //specular 
     specular = vec3(0);
@@ -98,9 +108,11 @@ void phong(in Light light, in vec3 position, in vec3 normal, out vec3 diffuse, o
         intensity = max(dot(h, normal), 0);
 
         intensity = pow(intensity, material.shininess);
-        specular =  vec3(intensity * spotIntensity) ;
+        intensity = (intensity < celSpecularCutoff) ? 0 : 1;
+        specular = vec3(intensity * spotIntensity);
     } 
 }
+
 
 void main()
 {	
@@ -114,13 +126,24 @@ void main()
     float shadow = calcShadow(fshadowcoord, shadowBias);
 	// set lights
 	for (int i = 0; i < numLights; i++)
-	{
+	{   
+        // outline
+        // check cosine between surface normal and view direction
+        //if less than cel outline threshold use outline color
+        float outline = dot(fnormal, fviewdir);
+        if (outline < celOutline)
+        {
+            ocolor = vec4(1);
+            return; // done rendering this fragment (pixel)
+        }
+
 		vec3 diffuse;
 		vec3 specular;
  
 		float attenuation = (light[i].type == DIRECTIONAL) ? 1 : attenuation(light[i].position, fposition, light[i].range);
         
-		phong(light[i], fposition, fnormal, diffuse, specular);
-		ocolor += ((vec4(diffuse, 1) * albedoColor) + vec4(specular, 1) * specularColor) * light[i].intensity * attenuation * shadow;
+		phong(light[i], fposition, fnormal, diffuse, specular); 
+
+       ocolor += ((vec4(diffuse, 1) * albedoColor) + vec4(specular, 1) * specularColor) * light[i].intensity * attenuation * shadow;
 	}
 }

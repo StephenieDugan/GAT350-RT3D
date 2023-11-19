@@ -28,7 +28,22 @@ namespace Twili
 
 		if (castShadow)
 		{
-			program->SetUniform("shadowVP", GetShadowMatrix());
+			glm::mat4 bias = glm::mat4(
+				glm::vec4(0.5f, 0.0f, 0.0f, 0.0f),
+				glm::vec4(0.0f, 0.5f, 0.0f, 0.0f),
+				glm::vec4(0.0f, 0.0f, 0.5f, 0.0f),
+				glm::vec4(0.5f, 0.5f, 0.5f, 1.0f));
+
+			program->SetUniform("shadowVP", bias * GetShadowMatrix());
+			program->SetUniform("shadowBias", shadowBias);
+			program->SetUniform("shadingLevels", celShading);
+		}
+
+		if (celShade)
+		{
+			program->SetUniform("shadingLevels", celShading);
+			program->SetUniform("celSpecularCutoff", specCutoff);
+			program->SetUniform("celOutline", Outline);
 		}
 	}
 
@@ -51,6 +66,14 @@ namespace Twili
 		if (castShadow)
 		{
 			ImGui::DragFloat("Shadow Size", &shadowSize, 0.1f, 1, 60);
+			ImGui::DragFloat("Shadow Dias", &shadowBias, 0.001f, 0, 0.5f);
+		}
+		ImGui::Checkbox("Cel Shader", &celShade);
+		if (celShade)
+		{
+			ImGui::SliderInt("Shading Threshold", &celShading, 0, 1);
+			ImGui::SliderFloat("Specular Cutoff", &specCutoff, 0.0f, 1.0f);
+			ImGui::SliderFloat("outline", &Outline, 0.0f, 1.0f);
 		}
 	}
 

@@ -35,6 +35,10 @@ namespace Twili
 		bool castShadow = false;
 		float shadowSize = 10;
 		float shadowBias = 0.005f;
+		bool celShade = false;
+		int celShading = 4;
+		float specCutoff = 4.0f;
+		float Outline = 4.0f;
 
 	};
 }
