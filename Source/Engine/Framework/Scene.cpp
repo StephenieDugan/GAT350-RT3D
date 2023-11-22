@@ -14,6 +14,7 @@ namespace Twili
 
 	void Scene::Update(float dt)
 	{
+		m_dt = dt;
 		// update and remove destroyed actors
 		auto iter = m_actors.begin();
 		while (iter != m_actors.end())
@@ -73,6 +74,20 @@ namespace Twili
 		m_actors.push_back(std::move(actor));
 	}
 
+	void Scene::Remove(Actor* actor)
+	{
+		auto iter = m_actors.begin();
+		while (iter != m_actors.end())
+		{
+			if ((*iter).get() == actor)
+			{
+				m_actors.erase(iter);
+				break;
+			}
+			iter++;
+		}
+	}
+
 	void Scene::RemoveAll(bool force)
 	{
 		auto iter = m_actors.begin();
@@ -124,31 +139,12 @@ namespace Twili
 
 	void Scene::ProcessGui()
 	{
-		ImGui::Begin("Scene");
+		float fps = 1 / m_dt;
+		float ms = 1000 * m_dt;
+		
+		ImVec4 color = (fps < 30) ? ImVec4{ 1,0,0,1 } : ImVec4{ 1,1,1,1 };
+		ImGui::TextColored(color, "%.2f FPS (%.2f)", fps, ms);
 		ImGui::ColorEdit3("Ambient", glm::value_ptr(ambientColor));
-		ImGui::Separator();
-
-
-
-		for (auto& actor : m_actors)
-		{
-			if (ImGui::Selectable(actor->name.c_str(), actor->guiSelect))
-			{
-				//set all actors to false
-				std::for_each(m_actors.begin(), m_actors.end(), [](auto& a) { a->guiSelect = false; });
-				//set current actor to true
-				actor->guiSelect = true;
-			}
-		}
-		ImGui::End();
-
-		ImGui::Begin("Inspector");
-		auto iter = std::find_if(m_actors.begin(), m_actors.end(), [](auto& a) { return a->guiSelect; });
-		if (iter != m_actors.end())
-		{
-			(*iter)->ProcessGui();
-		}
-		ImGui::End();
 
 		
 	}

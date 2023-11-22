@@ -15,6 +15,9 @@ namespace Twili
 		m_scene->Load("Scenes/scene_looney_tunes.json");
 		m_scene->Initialize();
 
+		m_editor = std::make_unique<Editor>();
+
+
 		auto texture = std::make_shared<Texture>();
 		texture->CreateDepthTexture(1024, 1024);
 		ADD_RESOURCE("depth_texture", texture);
@@ -48,7 +51,11 @@ namespace Twili
         ENGINE.GetSystem<Gui>()->BeginFrame();
 
         m_scene->Update(dt);
-        m_scene->ProcessGui();
+
+		m_editor->Update();
+        m_editor->ProcessGui(m_scene.get());
+
+
 
 		ENGINE.GetSystem<Gui>()->EndFrame();
 
