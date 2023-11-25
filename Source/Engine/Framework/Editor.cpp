@@ -20,7 +20,7 @@ namespace Twili
 
 		ImGui::Text("Filter by Resource Type:");
 		const char* resourceTypes[] = { "All", "texture", "model", "material", "shader" };
-		ImGui::Combo("##ResourceTypeCombo", (int*)&m_selectedResourceType, resourceTypes, IM_ARRAYSIZE(resourceTypes));
+		ImGui::Combo("##ResourceTypeCombo", (int*)&m_selectedType, resourceTypes, IM_ARRAYSIZE(resourceTypes));
 
 
 		// Show resources based on the selected type
@@ -28,13 +28,25 @@ namespace Twili
 		for (auto& resource : resources)
 		{
 			// Check if the resource type matches the selected type
-			if (m_selectedResourceType == ResourceType::ALL || GetResourceType(resource.get()) == m_selectedResourceType)
+			if (m_selectedType == "All") 
 			{
 				if (ImGui::Selectable(resource->name.c_str(), resource.get() == m_selected))
 				{
 					m_selected = resource.get();
 				}
 			}
+			else if (m_selectedType == "texture")
+			{
+				std::cout << "Class Nmae: " << resource->GetClassName() << std::endl;
+				if (resource->GetClassName() == "Texture")
+				{
+					if (ImGui::Selectable(resource->name.c_str(), resource.get() == m_selected))
+					{
+						m_selected = resource.get();
+					}
+				}
+			}
+			
 		}
 
 		ImGui::End();
@@ -131,23 +143,5 @@ namespace Twili
 		}
 		
 		ImGui::End();
-	}
-
-	Editor::ResourceType Editor::GetResourceType(Resource* resource)
-	{
-		std::string type = resource->GetClassName();
-
-		// Debugging statement
-		std::cout << "Resource Name: " << resource->name << ", Class Name: " << type << std::endl;
-
-		if (type == "texture") return ResourceType::TEXTURE;
-		else if (type == "model") return ResourceType::MODEL;
-		else if (type == "shader") return ResourceType::SHADER;
-		else if (type == "material") return ResourceType::MATERIAL;
-
-		// Debugging statement
-		std::cout << "Unknown Resource Type for Resource: " << resource->name << std::endl;
-
-		return ResourceType::ALL;
 	}
 }
