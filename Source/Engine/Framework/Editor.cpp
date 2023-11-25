@@ -19,8 +19,8 @@ namespace Twili
 		ImGui::Begin("Resources");
 
 		ImGui::Text("Filter by Resource Type:");
-		const char* resourceTypes[] = { "All", "texture", "model", "material", "shader" };
-		ImGui::Combo("##ResourceTypeCombo", (int*)&m_selectedType, resourceTypes, IM_ARRAYSIZE(resourceTypes));
+		const char* resourceTypes[] = { "All", "textures", "models", "materials", "shaders", "depth", "fantasie"};
+		ImGui::Combo("##ResourceTypeCombo", (int*)( &m_selectedType), resourceTypes, IM_ARRAYSIZE(resourceTypes));
 
 
 		// Show resources based on the selected type
@@ -28,17 +28,16 @@ namespace Twili
 		for (auto& resource : resources)
 		{
 			// Check if the resource type matches the selected type
-			if (m_selectedType == "All") 
+			if (m_selectedType == eType::All)
 			{
 				if (ImGui::Selectable(resource->name.c_str(), resource.get() == m_selected))
 				{
 					m_selected = resource.get();
 				}
 			}
-			else if (m_selectedType == "texture")
+			if (m_selectedType == eType::Texture)
 			{
-				std::cout << "Class Nmae: " << resource->GetClassName() << std::endl;
-				if (resource->GetClassName() == "Texture")
+				if (!resource->name.find("textures") > 0)
 				{
 					if (ImGui::Selectable(resource->name.c_str(), resource.get() == m_selected))
 					{
@@ -46,7 +45,56 @@ namespace Twili
 					}
 				}
 			}
-			
+			if (m_selectedType == eType::Model)
+			{
+				if (!resource->name.find("models") > 0)
+				{
+					if (ImGui::Selectable(resource->name.c_str(), resource.get() == m_selected))
+					{
+						m_selected = resource.get();
+					}
+				}
+			}
+			if (m_selectedType == eType::Material)
+			{
+				if (!resource->name.find("materials") > 0)
+				{
+					if (ImGui::Selectable(resource->name.c_str(), resource.get() == m_selected))
+					{
+						m_selected = resource.get();
+					}
+				}
+			}
+			if (m_selectedType == eType::Shader)
+			{
+				if (!resource->name.find("shaders") > 0)
+				{
+					if (ImGui::Selectable(resource->name.c_str(), resource.get() == m_selected))
+					{
+						m_selected = resource.get();
+					}
+				}
+			}
+			if (m_selectedType == eType::Depth)
+			{
+				if (!resource->name.find("depth") > 0)
+				{
+					if (ImGui::Selectable(resource->name.c_str(), resource.get() == m_selected))
+					{
+						m_selected = resource.get();
+					}
+				}
+			}
+			if (m_selectedType == eType::Fantasie)
+			{
+				if (!resource->name.find("fantasie") > 0)
+				{
+					if (ImGui::Selectable(resource->name.c_str(), resource.get() == m_selected))
+					{
+						m_selected = resource.get();
+					}
+				}
+			}
 		}
 
 		ImGui::End();

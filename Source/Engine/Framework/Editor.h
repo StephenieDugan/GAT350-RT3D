@@ -1,9 +1,19 @@
 #pragma once
-
+#include <string>
 namespace Twili
 {
 	class Editor
 	{
+		enum eType
+		{
+			All,
+			Texture,
+			Model,
+			Material,
+			Shader,
+			Depth,
+			Fantasie
+		};
 		public:
 			void Update();
 			void ProcessGui(class Scene* scene);
@@ -11,7 +21,7 @@ namespace Twili
 		private:
 		bool m_active = true;
 		class Object* m_selected = nullptr;
-		std::string m_selectedType;
+		eType m_selectedType = eType::All;
 	};
 }
 
