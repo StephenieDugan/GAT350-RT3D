@@ -126,7 +126,15 @@ namespace Twili
 
 	void Material::ProcessGui()
 	{
+
 		ImGui::TextColored(ImVec4{ 0, 1, 0, 1 }, "Name: %s", name.c_str());
+
+		// shader
+		ImGui::Text("Shader:");
+		ImGui::SameLine();
+		ImGui::Text("%s", m_program->name.c_str());
+		Gui::GetDialogResource<Program>(m_program, "ShaderTextureDialog", "Open Shader", "Shader file (*.prog){.prog},.*");
+
 		//albedo
 		ImGui::Text("Albedo  ");
 		ImGui::SameLine();
@@ -141,7 +149,7 @@ namespace Twili
 		ImGui::ColorEdit3("Specular", glm::value_ptr(albedo), ImGuiColorEditFlags_NoLabel | ImGuiColorEditFlags_NoInputs);
 		ImGui::SameLine();
 		(specularTexture) ? ImGui::Text("%s", specularTexture->name.c_str()) : ImGui::Text("Name");
-		Gui::GetDialogResource<Texture>(albedoTexture, "AlbedoTextureDialog", "Open texture", "Image file (*.png;*.jpg;*.jpeg;*.bmp;*.tga){.png,.jpg,.jpeg,.bmp,.tga},.*");
+		Gui::GetDialogResource<Texture>(specularTexture, "SpecularTextureDialog", "Open texture", "Image file (*.png;*.jpg;*.jpeg;*.bmp;*.tga){.png,.jpg,.jpeg,.bmp,.tga},.*");
 
 		//emissive
 		ImGui::Text("Emissive  ");
@@ -149,14 +157,16 @@ namespace Twili
 		ImGui::ColorEdit3("Emissive", glm::value_ptr(albedo), ImGuiColorEditFlags_NoLabel | ImGuiColorEditFlags_NoInputs);
 		ImGui::SameLine();
 		(emissiveTexture) ? ImGui::Text("%s", emissiveTexture->name.c_str()) : ImGui::Text("Name");
-		
+		Gui::GetDialogResource<Texture>(emissiveTexture, "EmissiveTextureDialog", "Open texture", "Image file (*.png;*.jpg;*.jpeg;*.bmp;*.tga){.png,.jpg,.jpeg,.bmp,.tga},.*");
+
 
 
 		//normal
 		ImGui::Text("Normal  ");
 		ImGui::SameLine();
 		(normalTexture) ? ImGui::Text("%s", normalTexture->name.c_str()) : ImGui::Text("Name");
-		
+		Gui::GetDialogResource<Texture>(normalTexture, "NormalTextureDialog", "Open texture", "Image file (*.png;*.jpg;*.jpeg;*.bmp;*.tga){.png,.jpg,.jpeg,.bmp,.tga},.*");
+
 
 		//ImGui::ColorEdit3("Albedo", glm::value_ptr(albedo));
 		//ImGui::ColorEdit3("Specular", glm::value_ptr(specular));

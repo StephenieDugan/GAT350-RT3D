@@ -126,6 +126,8 @@
     <ClInclude Include="Components\ScriptComponent.h">
       <Filter>Source\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Editor.h" />
+    <ClInclude Include="Editor.h">
+      <Filter>Source</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

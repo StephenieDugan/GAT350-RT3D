@@ -31,7 +31,7 @@ bool IsEqualIgnoreCase(const std::string& str1, const std::string& str2) {
 }
 
 std::string CreateUnique(const std::string& str) {
-    static unsigned int counter = 0;
+    static unsigned int counter = 1;
     std::ostringstream oss;
     oss << str << counter++;
     return oss.str();
