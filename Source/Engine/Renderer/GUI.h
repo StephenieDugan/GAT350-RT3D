@@ -28,11 +28,11 @@ namespace Twili
 		void ProcessEvent(SDL_Event& event);
 
 		template<typename T>
-		static bool GetDialogResource(res_t<T> resource, const std::string& dialogName, const std::string& title, const std::string& filetype);
+		static bool GetDialogResource(res_t<T>& resource, const std::string& dialogName, const std::string& title, const std::string& filetype);
 	
 	};
 	template<typename T>
-	inline bool Gui::GetDialogResource(res_t<T> resource, const std::string& dialogName, const std::string& title, const std::string& filetype)
+	inline bool Gui::GetDialogResource(res_t<T>& resource, const std::string& dialogName, const std::string& title, const std::string& filetype)
 	{
 		if (ImGui::IsItemClicked(0))
 		{
