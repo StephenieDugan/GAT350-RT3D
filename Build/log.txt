@@ -46,3 +46,5 @@ WARNING: Program.cpp(165) Could not find uniform location: material.params
 WARNING: Program.cpp(165) Could not find uniform location: material.specular
 WARNING: Program.cpp(165) Could not find uniform location: material.emissive
 WARNING: Program.cpp(165) Could not find uniform location: material.shininess
+WARNING: Model.cpp(25) Could not load Assimp file 
+WARNING: ResourceManager.h(71) Could not create resource: fantasie\simple_fantasy_sourcefiles\fbx\animations_ik.fbx
