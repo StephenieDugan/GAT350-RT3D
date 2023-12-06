@@ -13,7 +13,7 @@ namespace Twili
 	{
 		m_scene = std::make_unique<Scene>();
 		m_scene->Load("Scenes/scene_editor.json");
-		m_scene->Load("Scenes/scene_looney_tunes.json");
+		m_scene->Load("Scenes/scene.json");
 		m_scene->Initialize();
 
 		m_editor = std::make_unique<Editor>();

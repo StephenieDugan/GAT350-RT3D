@@ -1,6 +1,6 @@
 {
-  "program": "shaders/unlit_sprite.prog",
-  "albedoTexture": "textures/llama.jpg",
+  "program": "shaders/lit_texture.prog",
+  "albedoTexture": "textures/BathroomWall.jpg",
   "albedo": [
     1,
     1,

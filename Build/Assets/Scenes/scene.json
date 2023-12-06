@@ -2,7 +2,7 @@
 	"actors": [
 		{
 			"type": "Actor",
-			"name": "skybox",
+			"name": "wall1",
 			"persistent": true,
 			"transform": {
 				"position": [
@@ -11,9 +11,9 @@
 					0
 				],
 				"scale": [
-					5,
-					5,
-					5
+					50,
+					50,
+					50
 				],
 				"rotation": [
 					0,
@@ -24,9 +24,9 @@
 			"components": [
 				{
 					"type": "ModelComponent",
-					"modelName": "models/cube.obj",
-					"materialName": "materials/skybox.mtrl",
-					"enalbeDepth": false,
+					"modelName": "models/plane.obj",
+					"materialName": "materials/sprite.mtrl",
+					"enableDepth": false,
 					"cullface": "front"
 				}
 			]
